@@ -136,6 +136,9 @@ jobs:
         if: runner.os == 'Windows'
         run: |
           choco install wixtoolset -y
+          echo "C:\Program Files (x86)\WiX Toolset v3.11\bin" >> $env:GITHUB_PATH
+          echo "C:\ProgramData\chocolatey\bin" >> $env:GITHUB_PATH
+
 
       # Windows: Build Executable & MSI Installer
       - name: Build Windows Executable & MSI

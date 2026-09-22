@@ -46,7 +46,12 @@ if (-not $Candle) {
     $WixPaths = @(
         "$env:WIX\bin",
         "${env:ProgramFiles(x86)}\WiX Toolset v3.11\bin",
-        "$env:ProgramFiles\WiX Toolset v3.11\bin"
+        "$env:ProgramFiles\WiX Toolset v3.11\bin",
+        "C:\Program Files (x86)\WiX Toolset v3.11\bin",
+        "C:\Program Files\WiX Toolset v3.11\bin",
+        "C:\tools\wix",
+        "C:\ProgramData\chocolatey\bin",
+        "C:\ProgramData\chocolatey\lib\wixtoolset\tools"
     )
     foreach ($p in $WixPaths) {
         if (Test-Path (Join-Path $p "candle.exe")) {
