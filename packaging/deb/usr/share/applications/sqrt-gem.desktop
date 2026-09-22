@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=SQRT_Gem Calculator
+GenericName=High-Precision Calculator
+Comment=High-Precision Analytical Math Calculator (1000+ digits)
+Exec=sqrt-gem %U
+Icon=sqrt-gem
+Terminal=false
+Categories=Science;Math;Utility;Calculator;
+Keywords=math;calculator;precision;sqrt;arbitrary;
+StartupNotify=true
+StartupWMClass=SQRT_Gem

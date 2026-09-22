@@ -26,6 +26,10 @@ class MainWindow(QMainWindow):
         self._apply_theme(self.config_manager.config.theme)
         self.i18n.subscribe(self._on_language_changed)
 
+        if self.config_manager.config.auto_check_updates:
+            from PySide6.QtCore import QTimer
+            QTimer.singleShot(1000, self._background_check_updates)
+
     def _init_ui(self):
         self.resize(940, 720)
         self.setMinimumSize(800, 600)
@@ -107,3 +111,15 @@ class MainWindow(QMainWindow):
         self.tabs.setTabText(1, tr("tab_history"))
         self.tabs.setTabText(2, tr("tab_settings"))
         self.tabs.setTabText(3, tr("tab_diagnostics"))
+
+    def _background_check_updates(self):
+        try:
+            from src.updater import UpdateChecker
+            updater = UpdateChecker(current_version=self.config_manager.config.version)
+            info = updater.check_for_updates()
+            if info.available:
+                from src.ui.dialogs.update_dialog import UpdateDialog
+                dlg = UpdateDialog(self, update_info=info)
+                dlg.exec()
+        except Exception:
+            pass

@@ -7,6 +7,14 @@ import pytest
 from src.engine import MathEngine
 from src.storage import ConfigManager, HistoryManager
 from src.i18n import LocalizationService
+from PySide6.QtWidgets import QApplication
+
+@pytest.fixture(scope="session")
+def qapp():
+    app = QApplication.instance()
+    if app is None:
+        app = QApplication([])
+    return app
 
 @pytest.fixture
 def temp_dir():

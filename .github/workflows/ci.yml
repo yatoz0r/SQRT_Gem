@@ -48,7 +48,7 @@ jobs:
           path: .coverage
 
   build:
-    name: Build Binaries
+    name: Build Installers & Binaries
     needs: test
     runs-on: ${{ matrix.os }}
     strategy:
@@ -64,22 +64,36 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
+      - name: Install build dependencies
         run: |
+          python -m pip install --upgrade pip
           python -m pip install -r requirements.txt pyinstaller
 
-      - name: Build Windows Executable
+      # Windows: Build Executable & MSI Installer
+      - name: Build Windows Executable & MSI
         if: runner.os == 'Windows'
+        shell: powershell
         run: |
           python -m PyInstaller --noconfirm --onedir --windowed --name "SQRT_Gem" --add-data "locales;locales" src/main.py
+          .\packaging\build_msi.ps1
 
-      - name: Build Linux Executable
+      # Linux: Build Executable & Debian Package (.deb)
+      - name: Build Linux Executable & Debian Package
         if: runner.os == 'Linux'
         run: |
           python3 -m PyInstaller --noconfirm --onedir --windowed --name "SQRT_Gem" --add-data "locales:locales" src/main.py
+          python3 packaging/build_deb.py
 
-      - name: Upload Release Artifacts
+      # Upload Raw Binaries
+      - name: Upload Release Artifacts (Binaries)
         uses: actions/upload-artifact@v4
         with:
-          name: SQRT_Gem-${{ runner.os }}
+          name: SQRT_Gem-${{ runner.os }}-binaries
           path: dist/SQRT_Gem/
+
+      # Upload Native Installers (MSI / DEB)
+      - name: Upload Native Installers
+        uses: actions/upload-artifact@v4
+        with:
+          name: SQRT_Gem-${{ runner.os }}-installer
+          path: dist_installer/

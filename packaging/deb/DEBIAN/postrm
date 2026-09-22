@@ -1,0 +1,26 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+    purge)
+        echo "Purging SQRT_Gem application configuration and caches..."
+        for home_dir in /home/*; do
+            if [ -d "$home_dir/.config/sqrt_gem" ]; then
+                rm -rf "$home_dir/.config/sqrt_gem"
+            fi
+        done
+        if [ -d "/root/.config/sqrt_gem" ]; then
+            rm -rf "/root/.config/sqrt_gem"
+        fi
+        ;;
+    remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
+        if which update-desktop-database >/dev/null 2>&1; then
+            update-desktop-database -q /usr/share/applications || true
+        fi
+        if which gtk-update-icon-cache >/dev/null 2>&1; then
+            gtk-update-icon-cache -q -t -f /usr/share/icons/hicolor || true
+        fi
+        ;;
+esac
+
+exit 0

@@ -70,29 +70,60 @@ pytest
 
 ---
 
-## 📦 Сборка дистрибутивов
+## 📦 Сборка и установка дистрибутивов
 
-### Windows (PyInstaller + Inno Setup):
-1. Сборка исполняемого файла:
-   ```cmd
-   packaging\build_windows.bat
-   ```
-2. Компиляция установщика (требуется Inno Setup Compiler):
-   Откройте файл `packaging\setup.iss` в Inno Setup и нажмите **Compile**. Полученный инсталлятор сохранится в `dist_installer\`.
+### Windows:
+#### 1. Нативный установщик Windows Installer (.msi):
+- **Сборка пакета:**
+  ```cmd
+  packaging\build_msi.bat
+  # или через PowerShell:
+  powershell -ExecutionPolicy Bypass -File packaging\build_msi.ps1
+  ```
+  Готовый установщик сохраняется в `dist_installer\SQRT_Gem.msi`.
+- **Интерактивная установка:** дважды кликните по `dist_installer\SQRT_Gem.msi`.
+- **Тихая автоматическая установка (для системных администраторов):**
+  ```cmd
+  msiexec /i dist_installer\SQRT_Gem.msi /passive /norestart
+  ```
+- **Тихое удаление:**
+  ```cmd
+  msiexec /x dist_installer\SQRT_Gem.msi /quiet
+  ```
+
+#### 2. Inno Setup установщик (.exe):
+- Откройте `packaging\setup.iss` в Inno Setup Compiler и нажмите **Compile**.
+
+---
 
 ### Linux:
-1. Сборка бинарного пакета:
-   ```bash
-   chmod +x packaging/build_linux.sh packaging/install.sh packaging/uninstall.sh
-   ./packaging/build_linux.sh
-   ```
-2. Установка в систему:
-   ```bash
-   ./packaging/install.sh
-   ```
-3. Чистое удаление с выбором удаления/сохранения данных:
-   ```bash
-   ./packaging/uninstall.sh
-   # или для полного удаления данных:
-   ./packaging/uninstall.sh --purge
-   ```
+#### 1. Установка через Debian-пакет (.deb):
+- **Сборка .deb пакета (кроссплатформенно, работает на любой ОС):**
+  ```bash
+  python3 packaging/build_deb.py
+  # либо на Linux через стандартный dpkg-deb:
+  chmod +x packaging/build_deb.sh && ./packaging/build_deb.sh
+  ```
+  Пакет сохраняется в `dist_installer/sqrt-gem_1.0.0_amd64.deb`.
+- **Установка в Ubuntu / Debian / Mint:**
+  ```bash
+  sudo apt install ./dist_installer/sqrt-gem_1.0.0_amd64.deb
+  # или
+  sudo dpkg -i dist_installer/sqrt-gem_1.0.0_amd64.deb
+  ```
+- **Запуск:**
+  Из главного меню приложений или через терминал: `sqrt-gem`.
+- **Удаление:**
+  ```bash
+  sudo apt remove sqrt-gem
+  # Полное удаление с очисткой данных:
+  sudo apt purge sqrt-gem
+  ```
+
+#### 2. Установка через bash-скрипт:
+```bash
+chmod +x packaging/install.sh packaging/uninstall.sh
+./packaging/install.sh
+# Удаление:
+./packaging/uninstall.sh [--purge]
+```

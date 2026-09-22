@@ -132,18 +132,25 @@ class SettingsTab(QWidget):
         QMessageBox.information(self, "Settings", tr("settings_saved_success"))
 
     def _check_updates(self):
-        info: UpdateInfo = self.updater.check_for_updates()
-        if info.available:
-            type_label = tr("update_type_critical") if info.update_type == "critical" else tr("update_type_feature")
-            msg = (
-                f"{tr('update_available', new_version=info.latest_version, current_version=info.current_version)}\n\n"
-                f"Type: {type_label}\n"
-                f"Changelog: {info.changelog}\n\n"
-                f"Download: {info.download_url}"
-            )
-            QMessageBox.information(self, tr("update_title"), msg)
-        else:
-            QMessageBox.information(self, tr("update_title"), tr("update_latest", version=info.current_version))
+        self.btn_check_update.setEnabled(False)
+        self.btn_check_update.setText(tr("update_checking"))
+        try:
+            info: UpdateInfo = self.updater.check_for_updates()
+            if info.available:
+                from src.ui.dialogs.update_dialog import UpdateDialog
+                dlg = UpdateDialog(self, update_info=info)
+                dlg.exec()
+            else:
+                QMessageBox.information(
+                    self,
+                    tr("update_title"),
+                    tr("update_latest", version=info.current_version)
+                )
+        except Exception as e:
+            QMessageBox.warning(self, tr("update_title"), f"Error checking updates: {e}")
+        finally:
+            self.btn_check_update.setEnabled(True)
+            self.btn_check_update.setText(tr("update_btn_check"))
 
     def retranslate_ui(self):
         self.lbl_title.setText(tr("settings_title"))

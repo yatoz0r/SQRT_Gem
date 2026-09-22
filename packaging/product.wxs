@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <!--
+    WiX Toolset Manifest for SQRT_Gem (High-Precision Calculator)
+    Supports silent installation: msiexec /i SQRT_Gem.msi /passive /norestart
+  -->
+  <Product Id="*"
+           Name="SQRT_Gem High-Precision Calculator"
+           Language="1033"
+           Version="1.0.0"
+           Manufacturer="SQRT_Gem Team"
+           UpgradeCode="C8E28B91-4475-4C3D-8692-7E1A63DC458F">
+
+    <Package Id="*"
+             InstallerVersion="301"
+             Compressed="yes"
+             InstallScope="perMachine"
+             Description="SQRT_Gem High-Precision Analytical Math Calculator"
+             Comments="Precision calculator supporting arbitrary precision (1000+ digits)" />
+
+    <!-- Seamless major upgrade logic -->
+    <MajorUpgrade DowngradeErrorMessage="A newer version of SQRT_Gem is already installed."
+                  AllowSameVersionUpgrades="yes" />
+
+    <!-- Embedded CAB archive -->
+    <MediaTemplate EmbedCab="yes" />
+
+    <!-- Application Icon -->
+    <Icon Id="AppIcon.ico" SourceFile="packaging\icon.ico" />
+    <Property Id="ARPPRODUCTICON" Value="AppIcon.ico" />
+    <Property Id="ARPHELPLINK" Value="https://github.com/yatoz0r/SQRT_Gem" />
+    <Property Id="ARPURLINFOABOUT" Value="https://github.com/yatoz0r/SQRT_Gem" />
+
+    <!-- Directory Structure -->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFiles64Folder">
+        <Directory Id="INSTALLDIR" Name="SQRT_Gem">
+          <Directory Id="LocalesDir" Name="locales" />
+        </Directory>
+      </Directory>
+
+      <!-- Start Menu Folder -->
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="SQRT_Gem" />
+      </Directory>
+
+      <!-- Desktop Folder -->
+      <Directory Id="DesktopFolder" Name="Desktop" />
+    </Directory>
+
+    <!-- Application Components -->
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="MainExecutable" Guid="3E46C374-4C21-4E65-B5E3-72C59CE90C45" Win64="yes">
+        <File Id="SQRT_GemEXE"
+              Source="dist\SQRT_Gem\SQRT_Gem.exe"
+              KeyPath="yes" />
+      </Component>
+
+      <Component Id="AppLicense" Guid="8C9FD1A0-7176-4F15-896B-06381C43F623" Win64="yes">
+        <File Id="LicenseFile"
+              Source="LICENSE"
+              KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <!-- Locales Components -->
+    <DirectoryRef Id="LocalesDir">
+      <Component Id="LocalesComponent" Guid="B2C78440-C419-48A5-926B-983D5CF298B7" Win64="yes">
+        <File Id="LocaleEN" Source="locales\en.json" KeyPath="yes" />
+        <File Id="LocaleRU" Source="locales\ru.json" />
+        <File Id="LocaleES" Source="locales\es.json" />
+        <File Id="LocaleZH" Source="locales\zh.json" />
+      </Component>
+    </DirectoryRef>
+
+    <!-- Shortcuts Components -->
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="ApplicationShortcuts" Guid="F984E290-7D51-4091-8D99-A0CD5D8C4217">
+        <Shortcut Id="ApplicationStartMenuShortcut"
+                  Name="SQRT_Gem Calculator"
+                  Description="High-Precision Analytical Math Calculator"
+                  Target="[INSTALLDIR]SQRT_Gem.exe"
+                  WorkingDirectory="INSTALLDIR"
+                  Icon="AppIcon.ico" />
+        <RemoveFolder Id="CleanUpProgramMenu" On="uninstall" />
+        <RegistryValue Root="HKCU"
+                       Key="Software\SQRT_Gem"
+                       Name="StartMenuShortcut"
+                       Type="integer"
+                       Value="1"
+                       KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="DesktopFolder">
+      <Component Id="DesktopShortcutComponent" Guid="A38FD2B1-4899-4A73-A331-B2C5FE890D32">
+        <Shortcut Id="ApplicationDesktopShortcut"
+                  Name="SQRT_Gem Calculator"
+                  Description="High-Precision Analytical Math Calculator"
+                  Target="[INSTALLDIR]SQRT_Gem.exe"
+                  WorkingDirectory="INSTALLDIR"
+                  Icon="AppIcon.ico" />
+        <RegistryValue Root="HKCU"
+                       Key="Software\SQRT_Gem"
+                       Name="DesktopShortcut"
+                       Type="integer"
+                       Value="1"
+                       KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <!-- Feature Definition -->
+    <Feature Id="MainFeature" Title="SQRT_Gem Application" Level="1">
+      <ComponentRef Id="MainExecutable" />
+      <ComponentRef Id="AppLicense" />
+      <ComponentRef Id="LocalesComponent" />
+      <ComponentRef Id="ApplicationShortcuts" />
+      <ComponentRef Id="DesktopShortcutComponent" />
+    </Feature>
+
+  </Product>
+</Wix>

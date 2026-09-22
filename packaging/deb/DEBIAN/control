@@ -1,0 +1,14 @@
+Package: sqrt-gem
+Version: 1.0.0
+Section: math
+Priority: optional
+Architecture: amd64
+Maintainer: SQRT_Gem Team <info@example.com>
+Depends: python3 (>= 3.10), python3-pyside6 | libc6 (>= 2.31)
+Recommends: libgl1-mesa-glx, libegl1, libxkbcommon-x11-0, libdbus-1-3
+Homepage: https://github.com/yatoz0r/SQRT_Gem
+Description: High-precision analytical math calculator
+ SQRT_Gem is an arbitrary-precision desktop calculator built with Python
+ and PySide6 (Qt). It supports arbitrary precision arithmetic up to 1000+
+ decimal places, transcendental functions, 4 languages (RU, EN, ES, ZH),
+ and integrated self-diagnostic center.

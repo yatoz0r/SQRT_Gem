@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# SQRT_Gem Application Launcher
+
+set -e
+
+# Try launching pre-built PyInstaller binary if available in /opt/sqrt-gem
+if [ -x "/opt/sqrt-gem/SQRT_Gem" ]; then
+    exec "/opt/sqrt-gem/SQRT_Gem" "$@"
+fi
+
+# Fallback: run from installed python module in /opt/sqrt-gem
+if [ -f "/opt/sqrt-gem/src/main.py" ]; then
+    export PYTHONPATH="/opt/sqrt-gem:${PYTHONPATH}"
+    exec python3 "/opt/sqrt-gem/src/main.py" "$@"
+fi
+
+echo "Error: SQRT_Gem installation files not found in /opt/sqrt-gem." >&2
+exit 1
