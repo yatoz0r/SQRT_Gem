@@ -1,6 +1,6 @@
 # Калькулятор высокой точности (SQRT_Gem)
 
-[![CI/CD Pipeline](https://github.com/example/SQRT_Gem/actions/workflows/ci.yml/badge.svg)](https://github.com/example/SQRT_Gem/actions)
+[![CI/CD Pipeline](https://github.com/yatoz0r/SQRT_Gem/actions/workflows/ci.yml/badge.svg)](https://github.com/yatoz0r/SQRT_Gem/actions)
 [![Coverage](https://img.shields.io/badge/coverage->90%25-brightgreen.svg)](tests/)
 [![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
@@ -48,7 +48,7 @@
 
 ### Установка зависимостей
 ```bash
-git clone https://github.com/example/SQRT_Gem.git
+git clone https://github.com/yatoz0r/SQRT_Gem.git
 cd SQRT_Gem
 pip install -r requirements.txt
 ```

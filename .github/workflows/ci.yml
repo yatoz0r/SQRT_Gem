@@ -3,8 +3,12 @@ name: CI/CD Pipeline
 on:
   push:
     branches: [ main, develop ]
+    tags: [ 'v*' ]
   pull_request:
     branches: [ main, develop ]
+
+permissions:
+  contents: write
 
 jobs:
   test:
@@ -84,7 +88,6 @@ jobs:
             coverage.xml
           if-no-files-found: warn
 
-
   build:
     name: Build Installers & Binaries
     needs: test
@@ -138,9 +141,6 @@ jobs:
           python -c "import urllib.request, zipfile, os; url = 'https://github.com/wixtoolset/wix3/releases/download/wix3112rtm/wix311-binaries.zip'; zip_path = os.path.join(os.environ['TEMP'], 'wix311.zip'); dest = r'C:\wix'; urllib.request.urlretrieve(url, zip_path); zipfile.ZipFile(zip_path).extractall(dest)"
           echo "C:\wix" >> $env:GITHUB_PATH
 
-
-
-
       # Windows: Build Executable & MSI Installer
       - name: Build Windows Executable & MSI
         if: runner.os == 'Windows'
@@ -171,3 +171,49 @@ jobs:
           name: SQRT_Gem-${{ runner.os }}-installer
           path: dist_installer/
           if-no-files-found: error
+
+  release:
+    name: Publish GitHub Release
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Download Windows Installer
+        uses: actions/download-artifact@v4
+        with:
+          name: SQRT_Gem-Windows-installer
+          path: dist_release/
+
+      - name: Download Linux Installer
+        uses: actions/download-artifact@v4
+        with:
+          name: SQRT_Gem-Linux-installer
+          path: dist_release/
+
+      - name: Publish to GitHub Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || 'v1.0.0' }}
+          name: ${{ startsWith(github.ref, 'refs/tags/') && format('Release {0}', github.ref_name) || 'Release v1.0.0' }}
+          body: |
+            ## SQRT_Gem v1.0.0 — Прецизионный калькулятор высокой точности
+
+            ### Установочные пакеты:
+            - **Windows**: `SQRT_Gem.msi` (нативный Windows Installer, тихая установка: `msiexec /i SQRT_Gem.msi /passive /norestart`)
+            - **Linux**: `sqrt-gem_1.0.0_amd64.deb` (Debian/Ubuntu пакет: `sudo dpkg -i sqrt-gem_1.0.0_amd64.deb`)
+
+            ### Особенности релиза:
+            - Произвольная точность вычислений (до 1000+ десятичных знаков).
+            - Чистая архитектура, встроенный центр самодиагностики и самообслуживания.
+            - Мультиязычный интерфейс (RU, EN, ES, ZH).
+            - Автоматическая проверка обновлений с верификацией контрольной суммы SHA-256.
+          draft: false
+          prerelease: false
+          files: |
+            dist_release/*.msi
+            dist_release/*.deb

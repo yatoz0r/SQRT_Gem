@@ -4,7 +4,7 @@
 #define MyAppName "SQRT_Gem"
 #define MyAppVersion "1.0.0"
 #define MyAppPublisher "SQRT_Gem Team"
-#define MyAppURL "https://github.com/example/SQRT_Gem"
+#define MyAppURL "https://github.com/yatoz0r/SQRT_Gem"
 #define MyAppExeName "SQRT_Gem.exe"
 
 [Setup]
