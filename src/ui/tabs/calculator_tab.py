@@ -44,11 +44,13 @@ class CalculatorTab(QWidget):
         expr_row.addWidget(self.txt_expression)
 
         self.btn_clear = QPushButton()
+        self.btn_clear.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         self.btn_clear.clicked.connect(self.clear_input)
         expr_row.addWidget(self.btn_clear)
 
         self.btn_calc = QPushButton()
         self.btn_calc.setObjectName("btn_primary")
+        self.btn_calc.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         self.btn_calc.clicked.connect(self.calculate)
         expr_row.addWidget(self.btn_calc)
 
@@ -97,6 +99,7 @@ class CalculatorTab(QWidget):
             btn = QPushButton(text)
             btn.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
             btn.setMinimumHeight(36)
+            btn.setFocusPolicy(Qt.FocusPolicy.NoFocus)
 
             if text in numbers:
                 btn.setObjectName("btn_num")
@@ -162,6 +165,7 @@ class CalculatorTab(QWidget):
         result_header.addWidget(self.lbl_metrics)
 
         self.btn_copy = QPushButton()
+        self.btn_copy.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         self.btn_copy.clicked.connect(self.copy_result)
         result_header.addWidget(self.btn_copy)
 
@@ -278,3 +282,36 @@ class CalculatorTab(QWidget):
         self.lbl_result_title.setText(tr("label_result"))
         self.btn_copy.setText(tr("btn_copy"))
         self.btn_toggle_error_details.setText(tr("error_details"))
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        self.txt_expression.setFocus()
+
+    def keyPressEvent(self, event):
+        key = event.key()
+        text = event.text()
+
+        if key in (Qt.Key.Key_Return, Qt.Key.Key_Enter):
+            self.calculate()
+            event.accept()
+            return
+        elif key == Qt.Key.Key_Escape:
+            self.clear_input()
+            event.accept()
+            return
+        elif key == Qt.Key.Key_Backspace:
+            if not self.txt_expression.hasFocus():
+                self.txt_expression.setFocus()
+                self.txt_expression.backspace()
+                event.accept()
+                return
+
+        # Direct input of digits, operators, brackets, decimals, and function shortcuts
+        if text and (text.isprintable() or text in "+-*/^()."):
+            if not self.txt_expression.hasFocus():
+                self.txt_expression.setFocus()
+                self._append_to_expression(text)
+                event.accept()
+                return
+
+        super().keyPressEvent(event)

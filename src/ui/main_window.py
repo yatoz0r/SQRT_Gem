@@ -57,10 +57,28 @@ class MainWindow(QMainWindow):
         self.tabs.addTab(self.tab_settings, "")
         self.tabs.addTab(self.tab_diagnostics, "")
 
+        self.tabs.currentChanged.connect(self._on_tab_changed)
+
         self.status_bar = QStatusBar()
         self.setStatusBar(self.status_bar)
 
         self.retranslate_ui()
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        self.tab_calculator.txt_expression.setFocus()
+
+    def _on_tab_changed(self, index: int):
+        if index == 0:
+            self.tab_calculator.txt_expression.setFocus()
+
+    def keyPressEvent(self, event):
+        if self.tabs.currentIndex() == 0:
+            if not self.tab_calculator.txt_expression.hasFocus():
+                self.tab_calculator.keyPressEvent(event)
+                if event.isAccepted():
+                    return
+        super().keyPressEvent(event)
 
     def _on_calculation_completed(self, result):
         self.tab_history.refresh_table()
