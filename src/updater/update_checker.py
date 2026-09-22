@@ -8,46 +8,40 @@ from src.updater.manifest_fetcher import ManifestFetcher
 logger = logging.getLogger(__name__)
 
 CURRENT_VERSION = "1.0.0"
+DEFAULT_MANIFEST_URL = "https://raw.githubusercontent.com/yatoz0r/SQRT_Gem/main/version.json"
 
 class UpdateChecker:
     """Checks for application updates against version manifest."""
 
     def __init__(self, current_version: str = CURRENT_VERSION, manifest_url: Optional[str] = None):
         self.current_version = current_version
-        self.manifest_fetcher = ManifestFetcher(manifest_url=manifest_url)
+        self.manifest_url = manifest_url or DEFAULT_MANIFEST_URL
+        self.manifest_fetcher = ManifestFetcher(manifest_url=self.manifest_url)
 
-    def check_for_updates(self, manifest_data: Optional[Dict[str, Any]] = None, fetch_network: bool = False) -> UpdateInfo:
+    def check_for_updates(self, manifest_data: Optional[Dict[str, Any]] = None, fetch_network: bool = True) -> UpdateInfo:
         """
         Checks version against manifest dictionary or fetches from network.
+        Returns UpdateInfo with available=False if offline or already on latest version.
         """
         if manifest_data is None and fetch_network and self.manifest_fetcher.manifest_url:
             manifest_data = self.manifest_fetcher.fetch_manifest()
 
         if manifest_data is None:
-            manifest_data = {
-                "latest_version": "1.1.0",
-                "min_supported_version": "1.0.0",
-                "update_type": "feature",
-                "release_date": "2026-09-22",
-                "download_url": "https://github.com/yatoz0r/SQRT_Gem/releases/latest",
-                "changelog": "Добавлена поддержка экспорта истории и улучшен алгоритм самодиагностики.",
-                "assets": {
-                    "windows": {
-                        "platform": "windows",
-                        "filename": "SQRT_Gem-1.1.0-win64.msi",
-                        "download_url": "https://github.com/yatoz0r/SQRT_Gem/releases/download/v1.1.0/SQRT_Gem-1.1.0-win64.msi",
-                        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-                        "file_size": 15728640
-                    },
-                    "linux": {
-                        "platform": "linux",
-                        "filename": "sqrt-gem_1.1.0_amd64.deb",
-                        "download_url": "https://github.com/yatoz0r/SQRT_Gem/releases/download/v1.1.0/sqrt-gem_1.1.0_amd64.deb",
-                        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-                        "file_size": 14680064
-                    }
-                }
-            }
+            # Offline or no manifest available: return not available without inventing fake updates
+            return UpdateInfo(
+                available=False,
+                current_version=self.current_version,
+                latest_version=self.current_version,
+                update_type="patch",
+                release_date="",
+                changelog="",
+                min_supported_version=self.current_version,
+                is_compatible=True,
+                download_url="",
+                sha256="",
+                file_size=0,
+                assets={}
+            )
 
         latest_str = manifest_data.get("latest_version", manifest_data.get("version", self.current_version))
         curr_tuple = parse_semver(self.current_version)

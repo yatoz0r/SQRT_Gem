@@ -1,24 +1,24 @@
 {
-  "latest_version": "1.1.0",
+  "latest_version": "1.0.0",
   "min_supported_version": "1.0.0",
-  "update_type": "feature",
+  "update_type": "patch",
   "release_date": "2026-09-22",
-  "download_url": "https://github.com/yatoz0r/SQRT_Gem/releases/latest",
-  "changelog": "### Версия 1.1.0\n- Полная интеграция менеджера автоматических обновлений с проверкой контрольных сумм SHA-256.\n- Поддержка нативных установщиков Windows MSI и Linux Debian (.deb).\n- Оптимизация точности вычислений квадратных корней и производительности истории.",
+  "download_url": "https://github.com/yatoz0r/SQRT_Gem/releases",
+  "changelog": "### Версия 1.0.0 (Релиз)\n- Полнофункциональный калькулятор произвольной точности (до 1000 знаков).\n- Встроенный центр самодиагностики и восстановления.\n- Мультиязычный интерфейс (RU, EN, ES, ZH).\n- Нативные инсталляторы Windows MSI и Linux Debian (.deb).",
   "assets": {
     "windows": {
       "platform": "windows",
-      "filename": "SQRT_Gem-1.1.0-win64.msi",
-      "download_url": "https://github.com/yatoz0r/SQRT_Gem/releases/download/v1.1.0/SQRT_Gem-1.1.0-win64.msi",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "file_size": 15728640
+      "filename": "SQRT_Gem-1.0.0-win64.msi",
+      "download_url": "https://github.com/yatoz0r/SQRT_Gem/releases/download/v1.0.0/SQRT_Gem-1.0.0-win64.msi",
+      "sha256": "",
+      "file_size": 0
     },
     "linux": {
       "platform": "linux",
-      "filename": "sqrt-gem_1.1.0_amd64.deb",
-      "download_url": "https://github.com/yatoz0r/SQRT_Gem/releases/download/v1.1.0/sqrt-gem_1.1.0_amd64.deb",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "file_size": 14680064
+      "filename": "sqrt-gem_1.0.0_amd64.deb",
+      "download_url": "https://github.com/yatoz0r/SQRT_Gem/releases/download/v1.0.0/sqrt-gem_1.0.0_amd64.deb",
+      "sha256": "",
+      "file_size": 0
     }
   }
 }

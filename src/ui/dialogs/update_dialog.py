@@ -238,7 +238,23 @@ class UpdateDialog(QDialog):
         self.progress_container.hide()
         self.btn_later.setEnabled(True)
         self.btn_action.setText(tr("update_btn_retry"))
-        QMessageBox.critical(self, tr("update_title"), tr("update_download_error", error=err_msg))
+
+        msg_box = QMessageBox(self)
+        msg_box.setIcon(QMessageBox.Icon.Warning)
+        msg_box.setWindowTitle(tr("update_title"))
+        msg_box.setText(tr("update_download_error", error=err_msg))
+
+        btn_browser = None
+        target_url = (self.update_info.download_url if self.update_info else "") or "https://github.com/yatoz0r/SQRT_Gem/releases"
+        if target_url:
+            btn_browser = msg_box.addButton("GitHub Releases", QMessageBox.ButtonRole.ActionRole)
+        msg_box.addButton(QMessageBox.StandardButton.Ok)
+        msg_box.exec()
+
+        if btn_browser and msg_box.clickedButton() == btn_browser:
+            from PySide6.QtGui import QDesktopServices
+            from PySide6.QtCore import QUrl
+            QDesktopServices.openUrl(QUrl(target_url))
 
     def _on_download_cancelled(self):
         self.progress_container.hide()

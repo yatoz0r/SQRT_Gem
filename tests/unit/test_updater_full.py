@@ -426,3 +426,13 @@ def test_update_checker_network_fetch():
             assert info.download_url == "https://example.com/update.msi"
             assert info.sha256 == "abcdef"
             assert info.file_size == 2048
+
+
+def test_update_checker_offline_returns_not_available():
+    checker = UpdateChecker(current_version="1.0.0")
+    with patch.object(checker.manifest_fetcher, "fetch_manifest", return_value=None):
+        info = checker.check_for_updates(manifest_data=None, fetch_network=True)
+        assert info.available is False
+        assert info.current_version == "1.0.0"
+        assert info.latest_version == "1.0.0"
+

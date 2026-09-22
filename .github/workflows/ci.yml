@@ -29,14 +29,16 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgl1-mesa-glx libegl1 libxkbcommon-x11-0 libdbus-1-3
+          sudo apt-get install -y libgl1 libegl1 libxkbcommon0 libxkbcommon-x11-0 libdbus-1-3 libxcb-cursor0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-shape0 libxcb-xfixes0 libxcb-xinerama0 xvfb
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          python -m pip install -r requirements.txt
 
       - name: Run Pytest with Coverage
+        env:
+          QT_QPA_PLATFORM: offscreen
         run: |
           python -m pytest
 
@@ -46,12 +48,14 @@ jobs:
         with:
           name: coverage-report
           path: .coverage
+          if-no-files-found: error
 
   build:
     name: Build Installers & Binaries
     needs: test
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         os: [windows-latest, ubuntu-latest]
 
@@ -63,6 +67,12 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+
+      - name: Install system dependencies (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgl1 libegl1 libxkbcommon0 libxkbcommon-x11-0 libdbus-1-3 libxcb-cursor0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-shape0 libxcb-xfixes0 libxcb-xinerama0 xvfb
 
       - name: Install build dependencies
         run: |
@@ -81,8 +91,8 @@ jobs:
       - name: Build Linux Executable & Debian Package
         if: runner.os == 'Linux'
         run: |
-          python3 -m PyInstaller --noconfirm --onedir --windowed --name "SQRT_Gem" --add-data "locales:locales" src/main.py
-          python3 packaging/build_deb.py
+          python -m PyInstaller --noconfirm --onedir --windowed --name "SQRT_Gem" --add-data "locales:locales" src/main.py
+          python packaging/build_deb.py
 
       # Upload Raw Binaries
       - name: Upload Release Artifacts (Binaries)
@@ -90,6 +100,7 @@ jobs:
         with:
           name: SQRT_Gem-${{ runner.os }}-binaries
           path: dist/SQRT_Gem/
+          if-no-files-found: error
 
       # Upload Native Installers (MSI / DEB)
       - name: Upload Native Installers
@@ -97,3 +108,4 @@ jobs:
         with:
           name: SQRT_Gem-${{ runner.os }}-installer
           path: dist_installer/
+          if-no-files-found: error
