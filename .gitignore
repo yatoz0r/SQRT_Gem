@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+dist_installer/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+*.cover
+
+# Environments
+.env
+.venv
+venv/
+ENV/
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+
+# User data & diagnostic bundles
+diagnostic_reports/
+*.tmp
+*.tmp.*
+*.corrupted.*
