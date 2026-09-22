@@ -134,12 +134,10 @@ jobs:
 
       - name: Install WiX Toolset (Windows)
         if: runner.os == 'Windows'
-        shell: powershell
         run: |
-          $wixZip = "$env:TEMP\wix311.zip"
-          Invoke-WebRequest -Uri "https://github.com/wixtoolset/wix3/releases/download/wix3112rtm/wix311-binaries.zip" -OutFile $wixZip
-          Expand-Archive -Path $wixZip -DestinationPath "C:\tools\wix" -Force
-          echo "C:\tools\wix" >> $env:GITHUB_PATH
+          python -c "import urllib.request, zipfile, os; url = 'https://github.com/wixtoolset/wix3/releases/download/wix3112rtm/wix311-binaries.zip'; zip_path = os.path.join(os.environ['TEMP'], 'wix311.zip'); dest = r'C:\wix'; urllib.request.urlretrieve(url, zip_path); zipfile.ZipFile(zip_path).extractall(dest)"
+          echo "C:\wix" >> $env:GITHUB_PATH
+
 
 
 

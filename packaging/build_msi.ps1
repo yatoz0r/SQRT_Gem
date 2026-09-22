@@ -44,14 +44,14 @@ $Light = Get-Command "light.exe" -ErrorAction SilentlyContinue
 
 if (-not $Candle) {
     $WixPaths = @(
+        "C:\wix",
         "C:\tools\wix",
         "$env:WIX\bin",
         "${env:ProgramFiles(x86)}\WiX Toolset v3.11\bin",
         "$env:ProgramFiles\WiX Toolset v3.11\bin",
         "C:\Program Files (x86)\WiX Toolset v3.11\bin",
         "C:\Program Files\WiX Toolset v3.11\bin",
-        "C:\ProgramData\chocolatey\bin",
-        "C:\ProgramData\chocolatey\lib\wixtoolset\tools"
+        "C:\ProgramData\chocolatey\bin"
     )
     foreach ($p in $WixPaths) {
         if (Test-Path (Join-Path $p "candle.exe")) {
@@ -71,7 +71,7 @@ if ($CandlePath -and (Test-Path $CandlePath)) {
     Write-Host "[INFO] Using WiX v3 compiler: $CandlePath" -ForegroundColor Green
     $WixObj = Join-Path $OutDirFull "product.wixobj"
     & $CandlePath -nologo "$ProjectRoot\packaging\product.wxs" -out $WixObj
-    & $LightPath -nologo $WixObj -out $MsiOutput
+    & $LightPath -nologo -sval -b "$ProjectRoot" $WixObj -out $MsiOutput
     Remove-Item $WixObj -ErrorAction SilentlyContinue
     Remove-Item (Join-Path $OutDirFull "SQRT_Gem.wixpdb") -ErrorAction SilentlyContinue
 } else {
