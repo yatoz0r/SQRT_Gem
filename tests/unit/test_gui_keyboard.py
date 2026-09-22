@@ -1,17 +1,9 @@
 """Unit test verifying that keyboard input enters expression without clicking input field."""
 
 import pytest
-from PySide6.QtWidgets import QApplication
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QKeyEvent
 from src.ui.main_window import MainWindow
-
-@pytest.fixture(scope="module")
-def qapp():
-    app = QApplication.instance()
-    if app is None:
-        app = QApplication([])
-    return app
 
 def test_keyboard_input_without_clicking_field(qapp):
     win = MainWindow()
@@ -19,7 +11,6 @@ def test_keyboard_input_without_clicking_field(qapp):
     qapp.processEvents()
 
     calc = win.tab_calculator
-    # Ensure initially or when unfocused, typing reaches txt_expression
     calc.slider_precision.setFocus()
     assert not calc.txt_expression.hasFocus()
 
