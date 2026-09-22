@@ -57,7 +57,7 @@ class CalculatorTab(QWidget):
 
         # 2. Precision Controls Section
         prec_frame = QFrame()
-        prec_frame.setStyleSheet("background-color: rgba(255, 255, 255, 0.03); border-radius: 6px; padding: 6px;")
+        prec_frame.setObjectName("surface_card")
         prec_layout = QHBoxLayout(prec_frame)
 
         self.lbl_precision = QLabel()
@@ -89,12 +89,27 @@ class CalculatorTab(QWidget):
             ("1", 4, 0), ("2", 4, 1), ("3", 4, 2), ("C", 4, 3), ("=", 4, 4)
         ]
 
+        numbers = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."}
+        ops = {"+", "-", "*", "/", "^", "(", ")"}
+        funcs = {"sqrt(", "abs(", "ln(", "exp(", "pi", "e"}
+
         for text, row, col in buttons:
             btn = QPushButton(text)
             btn.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
-            btn.setMinimumHeight(32)
+            btn.setMinimumHeight(42)
+
+            if text in numbers:
+                btn.setObjectName("btn_num")
+            elif text in ops:
+                btn.setObjectName("btn_op")
+            elif text in funcs:
+                btn.setObjectName("btn_func")
+            elif text == "C":
+                btn.setObjectName("btn_clear")
+            elif text == "=":
+                btn.setObjectName("btn_equals")
+
             if text == "=":
-                btn.setObjectName("btn_primary")
                 btn.clicked.connect(self.calculate)
             elif text == "C":
                 btn.clicked.connect(self.clear_input)
@@ -106,7 +121,7 @@ class CalculatorTab(QWidget):
 
         # 4. Error Banner Section (Hidden by default)
         self.error_frame = QFrame()
-        self.error_frame.setStyleSheet("background-color: #3b181e; border: 1px solid #f38ba8; border-radius: 6px; padding: 8px;")
+        self.error_frame.setStyleSheet("background-color: #3b181e; border: 1px solid #f38ba8; border-radius: 8px; padding: 8px;")
         self.error_frame.setVisible(False)
         error_layout = QVBoxLayout(self.error_frame)
 
@@ -133,12 +148,12 @@ class CalculatorTab(QWidget):
         # 5. Result Display Section
         result_header = QHBoxLayout()
         self.lbl_result_title = QLabel()
-        self.lbl_result_title.setStyleSheet("font-weight: bold;")
+        self.lbl_result_title.setStyleSheet("font-weight: bold; font-size: 13px;")
         result_header.addWidget(self.lbl_result_title)
 
         result_header.addStretch()
         self.lbl_metrics = QLabel()
-        self.lbl_metrics.setStyleSheet("color: #a6adc8;")
+        self.lbl_metrics.setStyleSheet("color: #94a3b8; font-size: 12px;")
         result_header.addWidget(self.lbl_metrics)
 
         self.btn_copy = QPushButton()
@@ -148,9 +163,9 @@ class CalculatorTab(QWidget):
         main_layout.addLayout(result_header)
 
         self.txt_result = QTextEdit()
+        self.txt_result.setObjectName("result_display")
         self.txt_result.setReadOnly(True)
-        self.txt_result.setStyleSheet("font-family: 'Consolas', 'Courier New', monospace; font-size: 14px; padding: 10px;")
-        self.txt_result.setMinimumHeight(120)
+        self.txt_result.setMinimumHeight(130)
         main_layout.addWidget(self.txt_result)
 
     def _append_to_expression(self, text: str):
