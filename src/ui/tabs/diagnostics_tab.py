@@ -38,17 +38,22 @@ class DiagnosticsTab(QWidget):
 
         # Action Buttons
         btn_bar = QHBoxLayout()
+        btn_bar.setSpacing(10)
+
         self.btn_run_check = QPushButton()
         self.btn_run_check.setObjectName("btn_primary")
+        self.btn_run_check.setMinimumHeight(38)
         self.btn_run_check.clicked.connect(self._run_health_check)
         btn_bar.addWidget(self.btn_run_check)
 
         self.btn_export_bundle = QPushButton()
+        self.btn_export_bundle.setMinimumHeight(38)
         self.btn_export_bundle.clicked.connect(self._export_bundle)
         btn_bar.addWidget(self.btn_export_bundle)
 
         self.btn_factory_reset = QPushButton()
-        self.btn_factory_reset.setStyleSheet("background-color: #f38ba8; color: #11111b; font-weight: bold;")
+        self.btn_factory_reset.setObjectName("btn_warning")
+        self.btn_factory_reset.setMinimumHeight(38)
         self.btn_factory_reset.clicked.connect(self._factory_reset)
         btn_bar.addWidget(self.btn_factory_reset)
 

@@ -43,9 +43,9 @@
 
   "diag_title": "Центр диагностики и самообслуживания",
   "diag_subtitle": "Инструменты для проверки системы и снижения потребности в технической поддержке",
-  "diag_btn_run_check": "Запустить самодиагностику системы",
-  "diag_btn_export_bundle": "Сформировать отчет для техподдержки (.zip)",
-  "diag_btn_factory_reset": "Восстановить настройки по умолчанию (Self-Recovery)",
+  "diag_btn_run_check": "Запустить диагностику",
+  "diag_btn_export_bundle": "Экспорт отчёта (.zip)",
+  "diag_btn_factory_reset": "Сброс настроек (Self-Recovery)",
   "diag_bundle_created": "Диагностический архив успешно создан: {path}",
   "diag_faq_title": "База знаний и частые вопросы (Troubleshooting)",
   "diag_status_healthy": "Все системы работают штатно",

@@ -43,9 +43,9 @@
 
   "diag_title": "Diagnostics & Self-Service Center",
   "diag_subtitle": "Tools to verify system health and reduce tech support costs",
-  "diag_btn_run_check": "Run System Self-Check",
-  "diag_btn_export_bundle": "Generate Support Bundle (.zip)",
-  "diag_btn_factory_reset": "Restore Default Settings (Self-Recovery)",
+  "diag_btn_run_check": "Run Diagnostics",
+  "diag_btn_export_bundle": "Export Report (.zip)",
+  "diag_btn_factory_reset": "Reset Settings (Self-Recovery)",
   "diag_bundle_created": "Diagnostic bundle successfully created: {path}",
   "diag_faq_title": "Knowledge Base & Troubleshooting",
   "diag_status_healthy": "All systems operational",

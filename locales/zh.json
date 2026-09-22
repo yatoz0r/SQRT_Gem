@@ -43,9 +43,9 @@
 
   "diag_title": "诊断与自助服务中心",
   "diag_subtitle": "系统健康检查工具，有效降低技术支持成本",
-  "diag_btn_run_check": "运行系统健康自检",
-  "diag_btn_export_bundle": "生成技术支持报告包 (.zip)",
-  "diag_btn_factory_reset": "恢复出厂设置 (Self-Recovery)",
+  "diag_btn_run_check": "运行系统自检",
+  "diag_btn_export_bundle": "导出支持报告 (.zip)",
+  "diag_btn_factory_reset": "恢复默认设置 (Self-Recovery)",
   "diag_bundle_created": "诊断日志报告包已成功生成: {path}",
   "diag_faq_title": "知识库与故障排除 (Troubleshooting)",
   "diag_status_healthy": "所有系统运行正常",

@@ -43,9 +43,9 @@
 
   "diag_title": "Centro de diagnóstico y autoservicio",
   "diag_subtitle": "Herramientas para verificar el sistema y reducir costos de soporte",
-  "diag_btn_run_check": "Ejecutar autocomprobación",
-  "diag_btn_export_bundle": "Generar paquete de soporte (.zip)",
-  "diag_btn_factory_reset": "Restablecer configuración predeterminada (Self-Recovery)",
+  "diag_btn_run_check": "Ejecutar diagnóstico",
+  "diag_btn_export_bundle": "Exportar informe (.zip)",
+  "diag_btn_factory_reset": "Restablecer ajustes (Self-Recovery)",
   "diag_bundle_created": "Paquete de diagnóstico creado con éxito: {path}",
   "diag_faq_title": "Base de conocimientos y preguntas frecuentes",
   "diag_status_healthy": "Todos los sistemas operativos",

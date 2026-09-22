@@ -195,6 +195,27 @@ QPushButton#btn_primary:pressed, QPushButton#btn_equals:pressed {
     padding-top: 8px;
 }
 
+/* Secondary Warning / Recovery Action */
+QPushButton#btn_warning {
+    background-color: rgba(239, 68, 68, 0.12);
+    color: #fca5a5;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    border-radius: 6px;
+}
+
+QPushButton#btn_warning:hover {
+    background-color: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.4);
+    color: #fecaca;
+}
+
+QPushButton#btn_warning:pressed {
+    background-color: rgba(239, 68, 68, 0.08);
+    padding-top: 8px;
+}
+
 /* Card Containers & Group Boxes */
 QFrame#surface_card {
     background-color: #14151c;
@@ -492,6 +513,27 @@ QPushButton#btn_primary:hover, QPushButton#btn_equals:hover {
 
 QPushButton#btn_primary:pressed, QPushButton#btn_equals:pressed {
     background-color: #3730a3;
+    padding-top: 8px;
+}
+
+/* Secondary Warning / Recovery Action */
+QPushButton#btn_warning {
+    background-color: #fff1f2;
+    color: #b91c1c;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid #fecdd3;
+    border-radius: 6px;
+}
+
+QPushButton#btn_warning:hover {
+    background-color: #ffe4e6;
+    border-color: #fca5a5;
+    color: #991b1b;
+}
+
+QPushButton#btn_warning:pressed {
+    background-color: #fecdd3;
     padding-top: 8px;
 }
 
