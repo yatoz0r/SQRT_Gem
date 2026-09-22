@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <!--
-    WiX Toolset Manifest for SQRT_Gem (High-Precision Calculator)
-    Supports silent installation: msiexec /i SQRT_Gem.msi /passive /norestart
-  -->
   <Product Id="*"
            Name="SQRT_Gem High-Precision Calculator"
            Language="1033"
@@ -15,68 +11,594 @@
              InstallerVersion="301"
              Compressed="yes"
              InstallScope="perMachine"
+             Platform="x64"
              Description="SQRT_Gem High-Precision Analytical Math Calculator"
              Comments="Precision calculator supporting arbitrary precision (1000+ digits)" />
 
-    <!-- Seamless major upgrade logic -->
     <MajorUpgrade DowngradeErrorMessage="A newer version of SQRT_Gem is already installed."
                   AllowSameVersionUpgrades="yes" />
 
-    <!-- Embedded CAB archive -->
     <MediaTemplate EmbedCab="yes" />
 
-    <!-- Application Icon -->
     <Icon Id="AppIcon.ico" SourceFile="packaging\icon.ico" />
     <Property Id="ARPPRODUCTICON" Value="AppIcon.ico" />
     <Property Id="ARPHELPLINK" Value="https://github.com/yatoz0r/SQRT_Gem" />
     <Property Id="ARPURLINFOABOUT" Value="https://github.com/yatoz0r/SQRT_Gem" />
 
-    <!-- Directory Structure -->
+    <!-- Directory Hierarchy -->
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFiles64Folder">
         <Directory Id="INSTALLDIR" Name="SQRT_Gem">
-          <Directory Id="LocalesDir" Name="locales" />
+          <Directory Id="dir__internal_bb0ec0d040c1" Name="_internal">
+            <Component Id="cmp_base_library_zip_040cbfbb3d22" Guid="{46CD65FE-2407-5FF6-80D5-CF3B0C2AEC2E}" Win64="yes">
+              <File Id="fil_base_library_zip_040cbfbb3d22" Source="dist\SQRT_Gem\_internal\base_library.zip" KeyPath="yes" />
+            </Component>
+            <Component Id="cmp_libcrypto_3_dll_5759110a76fb" Guid="{12408D8B-1208-500D-84B5-C85A1F134843}" Win64="yes">
+              <File Id="fil_libcrypto_3_dll_5759110a76fb" Source="dist\SQRT_Gem\_internal\libcrypto-3.dll" KeyPath="yes" />
+            </Component>
+            <Component Id="cmp_libffi_8_dll_d0f98f34960c" Guid="{8F3C6001-AC72-5D46-ADE8-8145FC0A2130}" Win64="yes">
+              <File Id="fil_libffi_8_dll_d0f98f34960c" Source="dist\SQRT_Gem\_internal\libffi-8.dll" KeyPath="yes" />
+            </Component>
+            <Component Id="cmp_libssl_3_dll_994ade0f3fe3" Guid="{4E0F9CCB-CF8D-5988-B52B-943616EA4FAF}" Win64="yes">
+              <File Id="fil_libssl_3_dll_994ade0f3fe3" Source="dist\SQRT_Gem\_internal\libssl-3.dll" KeyPath="yes" />
+            </Component>
+            <Component Id="cmp_python3_dll_c2bcf5ddee5f" Guid="{4E0AA4E2-7937-5A57-AEEF-55551335D8C0}" Win64="yes">
+              <File Id="fil_python3_dll_c2bcf5ddee5f" Source="dist\SQRT_Gem\_internal\python3.dll" KeyPath="yes" />
+            </Component>
+            <Component Id="cmp_python314_dll_ab7adf831312" Guid="{FA03BDE6-28DD-5C99-B5AF-546C15C68D9D}" Win64="yes">
+              <File Id="fil_python314_dll_ab7adf831312" Source="dist\SQRT_Gem\_internal\python314.dll" KeyPath="yes" />
+            </Component>
+            <Component Id="cmp_select_pyd_b492d17c54fb" Guid="{5D3C3095-E829-54DC-B362-FCFEF309EB99}" Win64="yes">
+              <File Id="fil_select_pyd_b492d17c54fb" Source="dist\SQRT_Gem\_internal\select.pyd" KeyPath="yes" />
+            </Component>
+            <Component Id="cmp_unicodedata_pyd_83773d9d4c62" Guid="{A38FF314-5956-5D4B-858A-F4EB684854A7}" Win64="yes">
+              <File Id="fil_unicodedata_pyd_83773d9d4c62" Source="dist\SQRT_Gem\_internal\unicodedata.pyd" KeyPath="yes" />
+            </Component>
+            <Component Id="cmp_VCRUNTIME140_dll_368bf5a0851d" Guid="{B4739108-5A00-5E48-B681-ABE66761E5FA}" Win64="yes">
+              <File Id="fil_VCRUNTIME140_dll_368bf5a0851d" Source="dist\SQRT_Gem\_internal\VCRUNTIME140.dll" KeyPath="yes" />
+            </Component>
+            <Component Id="cmp_VCRUNTIME140_1_dll_9b87191dab3d" Guid="{31004F6E-C9C7-5105-8361-EB9B42FF30CE}" Win64="yes">
+              <File Id="fil_VCRUNTIME140_1_dll_9b87191dab3d" Source="dist\SQRT_Gem\_internal\VCRUNTIME140_1.dll" KeyPath="yes" />
+            </Component>
+            <Component Id="cmp__bz2_pyd_ab0157b0ea8d" Guid="{11D98530-FD89-5C81-9077-7DB36A67B018}" Win64="yes">
+              <File Id="fil__bz2_pyd_ab0157b0ea8d" Source="dist\SQRT_Gem\_internal\_bz2.pyd" KeyPath="yes" />
+            </Component>
+            <Component Id="cmp__ctypes_pyd_22a8c685dfe7" Guid="{CD13BE64-3106-559C-8D91-21E02F5A4976}" Win64="yes">
+              <File Id="fil__ctypes_pyd_22a8c685dfe7" Source="dist\SQRT_Gem\_internal\_ctypes.pyd" KeyPath="yes" />
+            </Component>
+            <Component Id="cmp__decimal_pyd_49872907d4cc" Guid="{4219C226-43E0-5A76-9050-D513F914CACD}" Win64="yes">
+              <File Id="fil__decimal_pyd_49872907d4cc" Source="dist\SQRT_Gem\_internal\_decimal.pyd" KeyPath="yes" />
+            </Component>
+            <Component Id="cmp__hashlib_pyd_b23841244805" Guid="{27CD8759-98A7-5266-AFDF-F5F58184BB38}" Win64="yes">
+              <File Id="fil__hashlib_pyd_b23841244805" Source="dist\SQRT_Gem\_internal\_hashlib.pyd" KeyPath="yes" />
+            </Component>
+            <Component Id="cmp__lzma_pyd_1ef2e5d7cc17" Guid="{EAA7705B-8D4D-5690-A06D-429103323C89}" Win64="yes">
+              <File Id="fil__lzma_pyd_1ef2e5d7cc17" Source="dist\SQRT_Gem\_internal\_lzma.pyd" KeyPath="yes" />
+            </Component>
+            <Component Id="cmp__socket_pyd_3f02ba2bb378" Guid="{9F2B8B4A-B4B9-5CF0-9FB8-9EF94AF1216D}" Win64="yes">
+              <File Id="fil__socket_pyd_3f02ba2bb378" Source="dist\SQRT_Gem\_internal\_socket.pyd" KeyPath="yes" />
+            </Component>
+            <Component Id="cmp__ssl_pyd_b51983020227" Guid="{017467A0-636B-58D6-8098-217E358E424C}" Win64="yes">
+              <File Id="fil__ssl_pyd_b51983020227" Source="dist\SQRT_Gem\_internal\_ssl.pyd" KeyPath="yes" />
+            </Component>
+            <Component Id="cmp__uuid_pyd_0a4e50e834ea" Guid="{D028EEBC-C280-5718-B7A4-8BDB9FAA5CDD}" Win64="yes">
+              <File Id="fil__uuid_pyd_0a4e50e834ea" Source="dist\SQRT_Gem\_internal\_uuid.pyd" KeyPath="yes" />
+            </Component>
+            <Component Id="cmp__wmi_pyd_71ea95a11158" Guid="{FBFFE298-593E-5CE8-A8FD-F2690236C83D}" Win64="yes">
+              <File Id="fil__wmi_pyd_71ea95a11158" Source="dist\SQRT_Gem\_internal\_wmi.pyd" KeyPath="yes" />
+            </Component>
+            <Component Id="cmp__zstd_pyd_980aafeaf426" Guid="{2F4E3784-9B5C-5EC7-ABD7-3DF10EBAAB7F}" Win64="yes">
+              <File Id="fil__zstd_pyd_980aafeaf426" Source="dist\SQRT_Gem\_internal\_zstd.pyd" KeyPath="yes" />
+            </Component>
+            <Directory Id="dir_PySide6_d87c28be5a9e" Name="PySide6">
+              <Component Id="cmp_MSVCP140_dll_8112d03cf81b" Guid="{EC6E988D-7BDB-5051-8AD4-B58AA3A64E09}" Win64="yes">
+                <File Id="fil_MSVCP140_dll_8112d03cf81b" Source="dist\SQRT_Gem\_internal\PySide6\MSVCP140.dll" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_MSVCP140_1_dll_259c875a766c" Guid="{C44F511C-F2DF-5297-9783-984ACD7E1389}" Win64="yes">
+                <File Id="fil_MSVCP140_1_dll_259c875a766c" Source="dist\SQRT_Gem\_internal\PySide6\MSVCP140_1.dll" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_MSVCP140_2_dll_13e094086b7b" Guid="{2495A018-F646-5D28-BC6F-02BD52F30092}" Win64="yes">
+                <File Id="fil_MSVCP140_2_dll_13e094086b7b" Source="dist\SQRT_Gem\_internal\PySide6\MSVCP140_2.dll" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_opengl32sw_dll_e332206f2aa9" Guid="{E17C39F8-5E4C-52A0-B91D-91A29CC7550E}" Win64="yes">
+                <File Id="fil_opengl32sw_dll_e332206f2aa9" Source="dist\SQRT_Gem\_internal\PySide6\opengl32sw.dll" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_pyside6_abi3_dll_f9b0da489904" Guid="{D2C67ACD-FD28-5537-8B30-968E2411989C}" Win64="yes">
+                <File Id="fil_pyside6_abi3_dll_f9b0da489904" Source="dist\SQRT_Gem\_internal\PySide6\pyside6.abi3.dll" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_Qt6Core_dll_da95f3afc6ca" Guid="{6B716404-AD8F-502D-863A-3A455E25A9D4}" Win64="yes">
+                <File Id="fil_Qt6Core_dll_da95f3afc6ca" Source="dist\SQRT_Gem\_internal\PySide6\Qt6Core.dll" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_Qt6Gui_dll_fdb03704d799" Guid="{3963E970-028C-57A4-A98C-AFD7F8ABAFAD}" Win64="yes">
+                <File Id="fil_Qt6Gui_dll_fdb03704d799" Source="dist\SQRT_Gem\_internal\PySide6\Qt6Gui.dll" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_Qt6Network_dll_2053a29897ac" Guid="{710C1DB0-B625-5E71-A0E1-8E5DCF713227}" Win64="yes">
+                <File Id="fil_Qt6Network_dll_2053a29897ac" Source="dist\SQRT_Gem\_internal\PySide6\Qt6Network.dll" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_Qt6OpenGL_dll_8e72e562b255" Guid="{14013EA0-137B-5909-8CDD-E42510DAB9B7}" Win64="yes">
+                <File Id="fil_Qt6OpenGL_dll_8e72e562b255" Source="dist\SQRT_Gem\_internal\PySide6\Qt6OpenGL.dll" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_Qt6Pdf_dll_377db8027386" Guid="{D00AB7DC-94C9-554C-96D8-77745E8A64E0}" Win64="yes">
+                <File Id="fil_Qt6Pdf_dll_377db8027386" Source="dist\SQRT_Gem\_internal\PySide6\Qt6Pdf.dll" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_Qt6Qml_dll_e80a88e2a3d6" Guid="{264DD18D-FF80-53E9-8C69-1D647957D29A}" Win64="yes">
+                <File Id="fil_Qt6Qml_dll_e80a88e2a3d6" Source="dist\SQRT_Gem\_internal\PySide6\Qt6Qml.dll" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_Qt6QmlMeta_dll_dd3b15736085" Guid="{00EE3D72-28EE-5DC3-AF99-1B25114C61FE}" Win64="yes">
+                <File Id="fil_Qt6QmlMeta_dll_dd3b15736085" Source="dist\SQRT_Gem\_internal\PySide6\Qt6QmlMeta.dll" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_Qt6QmlModels_dll_6aa2e200ecf5" Guid="{6DE9F351-091B-5C37-94D7-4FE7195CF071}" Win64="yes">
+                <File Id="fil_Qt6QmlModels_dll_6aa2e200ecf5" Source="dist\SQRT_Gem\_internal\PySide6\Qt6QmlModels.dll" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_Qt6QmlWorkerScript_dll_9cbce8a15a4d" Guid="{257E88A8-DD2B-5D36-808C-2E3470C0BAE6}" Win64="yes">
+                <File Id="fil_Qt6QmlWorkerScript_dll_9cbce8a15a4d" Source="dist\SQRT_Gem\_internal\PySide6\Qt6QmlWorkerScript.dll" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_Qt6Quick_dll_0ff9f079aa6e" Guid="{649A4491-04C1-5ACF-9A66-29980A1C1580}" Win64="yes">
+                <File Id="fil_Qt6Quick_dll_0ff9f079aa6e" Source="dist\SQRT_Gem\_internal\PySide6\Qt6Quick.dll" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_Qt6Svg_dll_78f0c9c56ca2" Guid="{7DC9EF96-E85C-5B46-9E4E-240E7544327F}" Win64="yes">
+                <File Id="fil_Qt6Svg_dll_78f0c9c56ca2" Source="dist\SQRT_Gem\_internal\PySide6\Qt6Svg.dll" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_Qt6VirtualKeyboard_dll_e7512d59220f" Guid="{1760B5B0-8504-5097-97F3-4756BD5723B5}" Win64="yes">
+                <File Id="fil_Qt6VirtualKeyboard_dll_e7512d59220f" Source="dist\SQRT_Gem\_internal\PySide6\Qt6VirtualKeyboard.dll" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_Qt6Widgets_dll_dd244623dfe3" Guid="{1641291E-31B9-5CC8-923E-A32ABB9171E5}" Win64="yes">
+                <File Id="fil_Qt6Widgets_dll_dd244623dfe3" Source="dist\SQRT_Gem\_internal\PySide6\Qt6Widgets.dll" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_QtCore_pyd_ee38e4e7d77e" Guid="{9E2B9698-3250-57F3-BDDD-6BEF6076804C}" Win64="yes">
+                <File Id="fil_QtCore_pyd_ee38e4e7d77e" Source="dist\SQRT_Gem\_internal\PySide6\QtCore.pyd" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_QtGui_pyd_041c7489023f" Guid="{9CD753C1-B0C3-5D9E-A548-BAED93B2005B}" Win64="yes">
+                <File Id="fil_QtGui_pyd_041c7489023f" Source="dist\SQRT_Gem\_internal\PySide6\QtGui.pyd" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_QtNetwork_pyd_d12d8dc7ab1a" Guid="{F013FDB1-1A43-568D-B095-1E9932ED467F}" Win64="yes">
+                <File Id="fil_QtNetwork_pyd_d12d8dc7ab1a" Source="dist\SQRT_Gem\_internal\PySide6\QtNetwork.pyd" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_QtWidgets_pyd_24f74bcf45ff" Guid="{E30DC5D3-97ED-5ECD-93C4-6C8D2EFAB456}" Win64="yes">
+                <File Id="fil_QtWidgets_pyd_24f74bcf45ff" Source="dist\SQRT_Gem\_internal\PySide6\QtWidgets.pyd" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_VCRUNTIME140_dll_74e1cff435e7" Guid="{0861C96B-8FF6-563A-806D-F5445FD81ECA}" Win64="yes">
+                <File Id="fil_VCRUNTIME140_dll_74e1cff435e7" Source="dist\SQRT_Gem\_internal\PySide6\VCRUNTIME140.dll" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_VCRUNTIME140_1_dll_9045fe7cdc0b" Guid="{4F570BBC-3CF2-5EE7-8C9F-18A0650A24FF}" Win64="yes">
+                <File Id="fil_VCRUNTIME140_1_dll_9045fe7cdc0b" Source="dist\SQRT_Gem\_internal\PySide6\VCRUNTIME140_1.dll" KeyPath="yes" />
+              </Component>
+              <Directory Id="dir_plugins_43ea077493e5" Name="plugins">
+                <Directory Id="dir_generic_67c948824592" Name="generic">
+                  <Component Id="cmp_qtuiotouchplugin_dll_57ef9420146c" Guid="{ADABB784-F69B-5014-9534-E4101A45D1F8}" Win64="yes">
+                    <File Id="fil_qtuiotouchplugin_dll_57ef9420146c" Source="dist\SQRT_Gem\_internal\PySide6\plugins\generic\qtuiotouchplugin.dll" KeyPath="yes" />
+                  </Component>
+                </Directory>
+                <Directory Id="dir_iconengines_23a8b6bb7976" Name="iconengines">
+                  <Component Id="cmp_qsvgicon_dll_58af59202aa0" Guid="{C43CC04A-E4EE-5748-9E45-1A742F8CA833}" Win64="yes">
+                    <File Id="fil_qsvgicon_dll_58af59202aa0" Source="dist\SQRT_Gem\_internal\PySide6\plugins\iconengines\qsvgicon.dll" KeyPath="yes" />
+                  </Component>
+                </Directory>
+                <Directory Id="dir_imageformats_b55da74d5cc8" Name="imageformats">
+                  <Component Id="cmp_qgif_dll_9708fd52df3d" Guid="{142C867E-EE97-5207-BFDD-3ACE71638144}" Win64="yes">
+                    <File Id="fil_qgif_dll_9708fd52df3d" Source="dist\SQRT_Gem\_internal\PySide6\plugins\imageformats\qgif.dll" KeyPath="yes" />
+                  </Component>
+                  <Component Id="cmp_qicns_dll_1d5d626eabc3" Guid="{FEF4BD23-267A-533B-B2C1-5D2851F78F5A}" Win64="yes">
+                    <File Id="fil_qicns_dll_1d5d626eabc3" Source="dist\SQRT_Gem\_internal\PySide6\plugins\imageformats\qicns.dll" KeyPath="yes" />
+                  </Component>
+                  <Component Id="cmp_qico_dll_ce204a9246b7" Guid="{241E13DC-4685-5ECC-8802-7EDAF234A22C}" Win64="yes">
+                    <File Id="fil_qico_dll_ce204a9246b7" Source="dist\SQRT_Gem\_internal\PySide6\plugins\imageformats\qico.dll" KeyPath="yes" />
+                  </Component>
+                  <Component Id="cmp_qjpeg_dll_95481ca59165" Guid="{13097B51-1961-5A0B-BFAC-FECFAF03BDF6}" Win64="yes">
+                    <File Id="fil_qjpeg_dll_95481ca59165" Source="dist\SQRT_Gem\_internal\PySide6\plugins\imageformats\qjpeg.dll" KeyPath="yes" />
+                  </Component>
+                  <Component Id="cmp_qpdf_dll_995fc6950a52" Guid="{D59A2802-E08C-59A9-B19D-8B3ACB56212C}" Win64="yes">
+                    <File Id="fil_qpdf_dll_995fc6950a52" Source="dist\SQRT_Gem\_internal\PySide6\plugins\imageformats\qpdf.dll" KeyPath="yes" />
+                  </Component>
+                  <Component Id="cmp_qsvg_dll_e6ff17b1a5eb" Guid="{3894D457-942D-572B-96C7-F964CDA26203}" Win64="yes">
+                    <File Id="fil_qsvg_dll_e6ff17b1a5eb" Source="dist\SQRT_Gem\_internal\PySide6\plugins\imageformats\qsvg.dll" KeyPath="yes" />
+                  </Component>
+                  <Component Id="cmp_qtga_dll_77432cdab604" Guid="{968162D4-E5EA-5BAE-B8AC-F336742DB6CC}" Win64="yes">
+                    <File Id="fil_qtga_dll_77432cdab604" Source="dist\SQRT_Gem\_internal\PySide6\plugins\imageformats\qtga.dll" KeyPath="yes" />
+                  </Component>
+                  <Component Id="cmp_qtiff_dll_a92da37deeca" Guid="{8FE39642-8C3E-56DA-B83B-FA1C92E5922C}" Win64="yes">
+                    <File Id="fil_qtiff_dll_a92da37deeca" Source="dist\SQRT_Gem\_internal\PySide6\plugins\imageformats\qtiff.dll" KeyPath="yes" />
+                  </Component>
+                  <Component Id="cmp_qwbmp_dll_26bce78c1e45" Guid="{EB120511-A912-58C7-881A-71025A08471B}" Win64="yes">
+                    <File Id="fil_qwbmp_dll_26bce78c1e45" Source="dist\SQRT_Gem\_internal\PySide6\plugins\imageformats\qwbmp.dll" KeyPath="yes" />
+                  </Component>
+                  <Component Id="cmp_qwebp_dll_3d892fd2a91b" Guid="{71EAF9C0-0903-5223-B21A-938A51FA31F3}" Win64="yes">
+                    <File Id="fil_qwebp_dll_3d892fd2a91b" Source="dist\SQRT_Gem\_internal\PySide6\plugins\imageformats\qwebp.dll" KeyPath="yes" />
+                  </Component>
+                </Directory>
+                <Directory Id="dir_networkinformation_a5d42919b912" Name="networkinformation">
+                  <Component Id="cmp_qnetworklistmanager_dll_7a684481bf42" Guid="{2377FE0B-D9AB-5106-9F59-9C9947299C44}" Win64="yes">
+                    <File Id="fil_qnetworklistmanager_dll_7a684481bf42" Source="dist\SQRT_Gem\_internal\PySide6\plugins\networkinformation\qnetworklistmanager.dll" KeyPath="yes" />
+                  </Component>
+                </Directory>
+                <Directory Id="dir_platforminputcontexts_e5c630bbd70f" Name="platforminputcontexts">
+                  <Component Id="cmp_qtvirtualkeyboardplugin_dll_8e6d36ca1c8b" Guid="{3DD63F25-5337-51C7-BA06-44C0CDB4F144}" Win64="yes">
+                    <File Id="fil_qtvirtualkeyboardplugin_dll_8e6d36ca1c8b" Source="dist\SQRT_Gem\_internal\PySide6\plugins\platforminputcontexts\qtvirtualkeyboardplugin.dll" KeyPath="yes" />
+                  </Component>
+                </Directory>
+                <Directory Id="dir_platforms_610dd20cc27d" Name="platforms">
+                  <Component Id="cmp_qdirect2d_dll_26dc576a2a07" Guid="{7190AAE9-C8E1-5E57-B836-91EB4421F460}" Win64="yes">
+                    <File Id="fil_qdirect2d_dll_26dc576a2a07" Source="dist\SQRT_Gem\_internal\PySide6\plugins\platforms\qdirect2d.dll" KeyPath="yes" />
+                  </Component>
+                  <Component Id="cmp_qminimal_dll_8fd438da0476" Guid="{59E1771C-5141-546C-8D86-1F604489A15B}" Win64="yes">
+                    <File Id="fil_qminimal_dll_8fd438da0476" Source="dist\SQRT_Gem\_internal\PySide6\plugins\platforms\qminimal.dll" KeyPath="yes" />
+                  </Component>
+                  <Component Id="cmp_qoffscreen_dll_8f8a8d4c676d" Guid="{F1A042E1-85E8-5682-889B-BCDA02E54799}" Win64="yes">
+                    <File Id="fil_qoffscreen_dll_8f8a8d4c676d" Source="dist\SQRT_Gem\_internal\PySide6\plugins\platforms\qoffscreen.dll" KeyPath="yes" />
+                  </Component>
+                  <Component Id="cmp_qwindows_dll_8c242c8aae60" Guid="{82BA257A-45BF-5F6E-986C-BE5EA3ECC99B}" Win64="yes">
+                    <File Id="fil_qwindows_dll_8c242c8aae60" Source="dist\SQRT_Gem\_internal\PySide6\plugins\platforms\qwindows.dll" KeyPath="yes" />
+                  </Component>
+                </Directory>
+                <Directory Id="dir_styles_81ef41dff32c" Name="styles">
+                  <Component Id="cmp_qmodernwindowsstyle_dll_3b2591c61dc3" Guid="{CB5D3680-47B5-529D-A40E-B01E4D5657AE}" Win64="yes">
+                    <File Id="fil_qmodernwindowsstyle_dll_3b2591c61dc3" Source="dist\SQRT_Gem\_internal\PySide6\plugins\styles\qmodernwindowsstyle.dll" KeyPath="yes" />
+                  </Component>
+                </Directory>
+                <Directory Id="dir_tls_edc75c6737e1" Name="tls">
+                  <Component Id="cmp_qcertonlybackend_dll_c7791bf7e97c" Guid="{274E48C7-6868-5575-B925-6C71CEBC3424}" Win64="yes">
+                    <File Id="fil_qcertonlybackend_dll_c7791bf7e97c" Source="dist\SQRT_Gem\_internal\PySide6\plugins\tls\qcertonlybackend.dll" KeyPath="yes" />
+                  </Component>
+                  <Component Id="cmp_qopensslbackend_dll_945e3bbee042" Guid="{8D9672AB-7A8E-5DA4-B47A-D26839DD03C5}" Win64="yes">
+                    <File Id="fil_qopensslbackend_dll_945e3bbee042" Source="dist\SQRT_Gem\_internal\PySide6\plugins\tls\qopensslbackend.dll" KeyPath="yes" />
+                  </Component>
+                  <Component Id="cmp_qschannelbackend_dll_5953f17be6e9" Guid="{D4524CFE-3FF6-597A-8D5D-31526DB5DE1B}" Win64="yes">
+                    <File Id="fil_qschannelbackend_dll_5953f17be6e9" Source="dist\SQRT_Gem\_internal\PySide6\plugins\tls\qschannelbackend.dll" KeyPath="yes" />
+                  </Component>
+                </Directory>
+              </Directory>
+              <Directory Id="dir_translations_6b4a7063e034" Name="translations">
+                <Component Id="cmp_qtbase_ar_qm_5dcfc7de45ad" Guid="{A4D66217-936F-565B-AFE6-FF036A3301E6}" Win64="yes">
+                  <File Id="fil_qtbase_ar_qm_5dcfc7de45ad" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_ar.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_bg_qm_2df0d60559a1" Guid="{1B1F7D1F-52B0-54CC-8A1A-71AEFBB1BAB9}" Win64="yes">
+                  <File Id="fil_qtbase_bg_qm_2df0d60559a1" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_bg.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_ca_qm_f6fd1c4de68d" Guid="{8E577024-1A25-5873-B17E-E48D4AFB55F0}" Win64="yes">
+                  <File Id="fil_qtbase_ca_qm_f6fd1c4de68d" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_ca.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_cs_qm_34daec7f7ce0" Guid="{EDF7A8F0-EC7D-5AB4-8162-95474B514A27}" Win64="yes">
+                  <File Id="fil_qtbase_cs_qm_34daec7f7ce0" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_cs.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_da_qm_9d6d9918dded" Guid="{79491D0C-8CCB-5124-B200-BD10E87A2EB7}" Win64="yes">
+                  <File Id="fil_qtbase_da_qm_9d6d9918dded" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_da.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_de_qm_53d0742abe0e" Guid="{9CD3EA94-B2D7-5052-9307-D907BBC3AD43}" Win64="yes">
+                  <File Id="fil_qtbase_de_qm_53d0742abe0e" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_de.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_en_qm_edecd8aee002" Guid="{383B1DE9-556B-5501-B06E-320C3B271948}" Win64="yes">
+                  <File Id="fil_qtbase_en_qm_edecd8aee002" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_en.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_es_qm_4e3d2a969b5e" Guid="{0616B0B8-3AFF-5FAF-A391-DC53EB9DA562}" Win64="yes">
+                  <File Id="fil_qtbase_es_qm_4e3d2a969b5e" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_es.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_fa_qm_f9de96591c20" Guid="{92A618F0-CFC5-5B08-86A9-7180B8D8D720}" Win64="yes">
+                  <File Id="fil_qtbase_fa_qm_f9de96591c20" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_fa.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_fi_qm_dbdad4619bd6" Guid="{0CD75163-51D6-5C5F-B191-344E32623A03}" Win64="yes">
+                  <File Id="fil_qtbase_fi_qm_dbdad4619bd6" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_fi.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_fr_qm_cb130716a988" Guid="{65E02832-3483-5817-8BA5-712823464493}" Win64="yes">
+                  <File Id="fil_qtbase_fr_qm_cb130716a988" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_fr.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_gd_qm_41bae0758be6" Guid="{15093346-1B43-5BF3-B525-FF8B0200B076}" Win64="yes">
+                  <File Id="fil_qtbase_gd_qm_41bae0758be6" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_gd.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_he_qm_ca3b70eeaf9d" Guid="{E4DD81F9-BD84-5E85-993B-9D94BF0EA896}" Win64="yes">
+                  <File Id="fil_qtbase_he_qm_ca3b70eeaf9d" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_he.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_hr_qm_1da486e429b1" Guid="{817FCE2B-05EF-5168-8BF1-87C2940E9C37}" Win64="yes">
+                  <File Id="fil_qtbase_hr_qm_1da486e429b1" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_hr.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_hu_qm_9cda44dc23bb" Guid="{CF126EA7-13CD-51EB-97C3-C3FD925690A6}" Win64="yes">
+                  <File Id="fil_qtbase_hu_qm_9cda44dc23bb" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_hu.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_it_qm_a1ccbfacbb26" Guid="{534EE13E-D61C-5281-9E23-66141456CF24}" Win64="yes">
+                  <File Id="fil_qtbase_it_qm_a1ccbfacbb26" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_it.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_ja_qm_1cb1a5c4016c" Guid="{3DE53E42-0587-51DD-A74D-AD67D5F4422B}" Win64="yes">
+                  <File Id="fil_qtbase_ja_qm_1cb1a5c4016c" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_ja.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_ka_qm_b4a1fcbb159a" Guid="{E8EE39F3-C175-5903-BCFC-88C79B7AC7CF}" Win64="yes">
+                  <File Id="fil_qtbase_ka_qm_b4a1fcbb159a" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_ka.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_ko_qm_c071068ba179" Guid="{185E6385-F219-5AC8-A9C3-AC6F88AFCAA9}" Win64="yes">
+                  <File Id="fil_qtbase_ko_qm_c071068ba179" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_ko.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_lg_qm_d5c5b7e8c46c" Guid="{17DBD7DB-7A54-5C10-AC36-8107ADBCC44B}" Win64="yes">
+                  <File Id="fil_qtbase_lg_qm_d5c5b7e8c46c" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_lg.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_lv_qm_b51a849cb814" Guid="{83227A23-C012-5E5B-AF4E-6EEEF3359DB9}" Win64="yes">
+                  <File Id="fil_qtbase_lv_qm_b51a849cb814" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_lv.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_nl_qm_4baf71b5115b" Guid="{3A34C795-7D79-5BA4-89E7-E508D9A0F669}" Win64="yes">
+                  <File Id="fil_qtbase_nl_qm_4baf71b5115b" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_nl.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_nn_qm_6875925d662a" Guid="{F196AD79-942A-5EE1-80D6-0902BB528EA6}" Win64="yes">
+                  <File Id="fil_qtbase_nn_qm_6875925d662a" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_nn.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_pl_qm_25ca5082a749" Guid="{C0BC6E52-1C40-5141-AD12-B54231A2C3AE}" Win64="yes">
+                  <File Id="fil_qtbase_pl_qm_25ca5082a749" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_pl.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_pt_BR_qm_71a3a3dd5f35" Guid="{F611D650-36A6-5F7D-9558-BDD40BF2955A}" Win64="yes">
+                  <File Id="fil_qtbase_pt_BR_qm_71a3a3dd5f35" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_pt_BR.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_ru_qm_ea7fcdf13455" Guid="{9CA660DB-B3F6-5094-A261-0C5C9DA0ABB5}" Win64="yes">
+                  <File Id="fil_qtbase_ru_qm_ea7fcdf13455" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_ru.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_sk_qm_18c306fa3957" Guid="{D073DEE3-CAFB-565C-8DFC-D97BE43EB148}" Win64="yes">
+                  <File Id="fil_qtbase_sk_qm_18c306fa3957" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_sk.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_sv_qm_198fa05279da" Guid="{4B89943B-3BB5-53E9-894D-21D7E9D5A880}" Win64="yes">
+                  <File Id="fil_qtbase_sv_qm_198fa05279da" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_sv.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_tr_qm_cc0d967e7082" Guid="{90D24E33-ACDA-5264-8690-559B9675B706}" Win64="yes">
+                  <File Id="fil_qtbase_tr_qm_cc0d967e7082" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_tr.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_uk_qm_486b5b934e82" Guid="{20E5C598-FD88-5493-BB1B-E3D39B25FCBC}" Win64="yes">
+                  <File Id="fil_qtbase_uk_qm_486b5b934e82" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_uk.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_zh_CN_qm_87f6fa1576d1" Guid="{72A03A26-065B-5DB3-A29C-1C794A049B0B}" Win64="yes">
+                  <File Id="fil_qtbase_zh_CN_qm_87f6fa1576d1" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_zh_CN.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qtbase_zh_TW_qm_970b8336cbad" Guid="{B14A909C-FFC6-51B3-9F15-154B204C70AE}" Win64="yes">
+                  <File Id="fil_qtbase_zh_TW_qm_970b8336cbad" Source="dist\SQRT_Gem\_internal\PySide6\translations\qtbase_zh_TW.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_ar_qm_dfa68270604b" Guid="{32E781C2-FE72-5C0A-AAF3-E91C4850A994}" Win64="yes">
+                  <File Id="fil_qt_ar_qm_dfa68270604b" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_ar.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_bg_qm_d5b6fcd71de5" Guid="{8DA0A054-B6FA-51DA-B3EB-310FDDAE915A}" Win64="yes">
+                  <File Id="fil_qt_bg_qm_d5b6fcd71de5" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_bg.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_ca_qm_f5f8d57365c7" Guid="{CAE80C15-9CC9-5DC4-B12A-1DAA643A51D9}" Win64="yes">
+                  <File Id="fil_qt_ca_qm_f5f8d57365c7" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_ca.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_cs_qm_8d252f3f952f" Guid="{F20293E8-7A7D-5C2F-9A19-E1A77F992A14}" Win64="yes">
+                  <File Id="fil_qt_cs_qm_8d252f3f952f" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_cs.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_da_qm_d89dc1fdf6c1" Guid="{BA0AD45C-F8FC-5B73-B318-C036CCF029DF}" Win64="yes">
+                  <File Id="fil_qt_da_qm_d89dc1fdf6c1" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_da.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_de_qm_c55c0f6ac6c6" Guid="{76D4EF9C-405E-5E71-BEDC-E7C9F0CDF0D1}" Win64="yes">
+                  <File Id="fil_qt_de_qm_c55c0f6ac6c6" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_de.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_en_qm_955ee5a2765d" Guid="{9B6DFB2B-285A-5369-B567-56168DD0E3B7}" Win64="yes">
+                  <File Id="fil_qt_en_qm_955ee5a2765d" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_en.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_es_qm_77fe2cc5941c" Guid="{1687A768-1BF4-5955-BC3D-7AA332305917}" Win64="yes">
+                  <File Id="fil_qt_es_qm_77fe2cc5941c" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_es.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_fa_qm_71c9e6674c82" Guid="{6A7DD006-899A-54A5-B17E-7C5DA17168FA}" Win64="yes">
+                  <File Id="fil_qt_fa_qm_71c9e6674c82" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_fa.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_fi_qm_6a87bffc9712" Guid="{BB2A2ED9-9FB8-5E26-A2A3-EA2C35059894}" Win64="yes">
+                  <File Id="fil_qt_fi_qm_6a87bffc9712" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_fi.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_fr_qm_ed510c787a8b" Guid="{A5DB7385-DB0E-5C6D-A24E-E6E767B8FA00}" Win64="yes">
+                  <File Id="fil_qt_fr_qm_ed510c787a8b" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_fr.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_gd_qm_e5b6edbf62b5" Guid="{093541AB-837D-56CF-812A-B5E61AD41037}" Win64="yes">
+                  <File Id="fil_qt_gd_qm_e5b6edbf62b5" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_gd.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_gl_qm_db206e50d5e2" Guid="{2F828E62-0D3A-50DC-9F50-FFDFA0613E79}" Win64="yes">
+                  <File Id="fil_qt_gl_qm_db206e50d5e2" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_gl.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_he_qm_abe504935055" Guid="{2224632E-69E5-52E7-8592-709B9C7C9FAA}" Win64="yes">
+                  <File Id="fil_qt_he_qm_abe504935055" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_he.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_help_ar_qm_54b5268a9417" Guid="{4A3491D0-DE06-565D-ABF7-A67009AEE39D}" Win64="yes">
+                  <File Id="fil_qt_help_ar_qm_54b5268a9417" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_help_ar.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_help_bg_qm_ddeec537e58d" Guid="{09D7B498-130C-58E0-91B6-64CA15728C7B}" Win64="yes">
+                  <File Id="fil_qt_help_bg_qm_ddeec537e58d" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_help_bg.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_help_ca_qm_42c1dc78645f" Guid="{338D6E84-7A14-5C8B-AC6E-A844E8FFA403}" Win64="yes">
+                  <File Id="fil_qt_help_ca_qm_42c1dc78645f" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_help_ca.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_help_cs_qm_5f66f5bcdfe9" Guid="{DA0412B9-145E-5148-9F0D-CF935F477C79}" Win64="yes">
+                  <File Id="fil_qt_help_cs_qm_5f66f5bcdfe9" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_help_cs.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_help_da_qm_a9b91b086d40" Guid="{6DE5FBCD-AC19-52BA-96D2-32F8817BAABB}" Win64="yes">
+                  <File Id="fil_qt_help_da_qm_a9b91b086d40" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_help_da.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_help_de_qm_a00fcb4f67b4" Guid="{FA0BEBFB-364C-508B-AFB7-9221AF8EF28C}" Win64="yes">
+                  <File Id="fil_qt_help_de_qm_a00fcb4f67b4" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_help_de.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_help_en_qm_227e904f52ab" Guid="{1CAB5991-1699-547D-BE68-60F6F3517565}" Win64="yes">
+                  <File Id="fil_qt_help_en_qm_227e904f52ab" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_help_en.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_help_es_qm_cf70c637b314" Guid="{A6BD63FB-C74F-5D6F-963A-5EAAF7C66343}" Win64="yes">
+                  <File Id="fil_qt_help_es_qm_cf70c637b314" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_help_es.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_help_fr_qm_e3de082275f9" Guid="{5450987A-F509-5185-9315-3D5F444835FD}" Win64="yes">
+                  <File Id="fil_qt_help_fr_qm_e3de082275f9" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_help_fr.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_help_gl_qm_9ad20349f7be" Guid="{101C91A0-BC44-5CF3-84A6-0108D32C54C2}" Win64="yes">
+                  <File Id="fil_qt_help_gl_qm_9ad20349f7be" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_help_gl.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_help_hr_qm_067b534cb57d" Guid="{916F34B4-1FD5-5EA1-9190-A2AB6D41BAF5}" Win64="yes">
+                  <File Id="fil_qt_help_hr_qm_067b534cb57d" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_help_hr.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_help_hu_qm_a2bfa336acb2" Guid="{101A596C-707D-5350-8937-44CB9155C151}" Win64="yes">
+                  <File Id="fil_qt_help_hu_qm_a2bfa336acb2" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_help_hu.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_help_it_qm_de9cf88362e3" Guid="{382D3BE9-0D53-58C2-8E26-ECBAC1E329D8}" Win64="yes">
+                  <File Id="fil_qt_help_it_qm_de9cf88362e3" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_help_it.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_help_ja_qm_741fc8717fe7" Guid="{345D4A05-B20A-56CE-A641-0C30B4F8FAF4}" Win64="yes">
+                  <File Id="fil_qt_help_ja_qm_741fc8717fe7" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_help_ja.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_help_ka_qm_804a5d9c4c62" Guid="{C162FF22-0D57-5CE2-AA3D-A353C11AEBCF}" Win64="yes">
+                  <File Id="fil_qt_help_ka_qm_804a5d9c4c62" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_help_ka.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_help_ko_qm_97e788b8fec9" Guid="{1FC558DE-CCF6-5920-8735-1D219032CB9A}" Win64="yes">
+                  <File Id="fil_qt_help_ko_qm_97e788b8fec9" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_help_ko.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_help_nl_qm_8d227efa27d3" Guid="{FD4FFF63-8A8C-5307-B865-9E6ADBDC4EA8}" Win64="yes">
+                  <File Id="fil_qt_help_nl_qm_8d227efa27d3" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_help_nl.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_help_nn_qm_dc74bccc3140" Guid="{135B598C-5417-5501-84B9-A0D6DF20ADBE}" Win64="yes">
+                  <File Id="fil_qt_help_nn_qm_dc74bccc3140" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_help_nn.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_help_pl_qm_8b9e957847e8" Guid="{9FC475D4-687C-5EC7-90B4-B62692C45353}" Win64="yes">
+                  <File Id="fil_qt_help_pl_qm_8b9e957847e8" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_help_pl.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_help_pt_BR_qm_fe097bc667c9" Guid="{04F9AF81-0422-59B2-BE0D-BDEFD5D126C2}" Win64="yes">
+                  <File Id="fil_qt_help_pt_BR_qm_fe097bc667c9" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_help_pt_BR.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_help_ru_qm_e86c5b40b204" Guid="{07DF05B0-D48D-5898-981A-112629D01638}" Win64="yes">
+                  <File Id="fil_qt_help_ru_qm_e86c5b40b204" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_help_ru.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_help_sk_qm_23b4af3f6121" Guid="{242D4F3F-5C77-518C-83A8-BFE01DE1172E}" Win64="yes">
+                  <File Id="fil_qt_help_sk_qm_23b4af3f6121" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_help_sk.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_help_sl_qm_350e50d90f80" Guid="{AE144A93-9A8D-5044-8CA2-42F46DF88A06}" Win64="yes">
+                  <File Id="fil_qt_help_sl_qm_350e50d90f80" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_help_sl.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_help_sv_qm_3f8d1dcbd48a" Guid="{BE129150-6464-585C-8B8D-BFCA5950B501}" Win64="yes">
+                  <File Id="fil_qt_help_sv_qm_3f8d1dcbd48a" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_help_sv.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_help_tr_qm_d199d5049aa2" Guid="{2AFCE5F3-5D74-559B-A979-EE1BB232B3D9}" Win64="yes">
+                  <File Id="fil_qt_help_tr_qm_d199d5049aa2" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_help_tr.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_help_uk_qm_2be369a5ba02" Guid="{12581E3F-7DEC-5D25-A2AD-201A56EFDB65}" Win64="yes">
+                  <File Id="fil_qt_help_uk_qm_2be369a5ba02" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_help_uk.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_help_zh_CN_qm_dab7704249ad" Guid="{55C9D67A-F039-5D88-AE8A-B7E329FD6555}" Win64="yes">
+                  <File Id="fil_qt_help_zh_CN_qm_dab7704249ad" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_help_zh_CN.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_help_zh_TW_qm_561291463527" Guid="{A0AD59DA-BBC2-5046-A80E-BE07D7C091DD}" Win64="yes">
+                  <File Id="fil_qt_help_zh_TW_qm_561291463527" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_help_zh_TW.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_hr_qm_d45f29da32a4" Guid="{321F11B7-4125-5938-A9FB-79F4C71A1335}" Win64="yes">
+                  <File Id="fil_qt_hr_qm_d45f29da32a4" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_hr.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_hu_qm_9d8d9b328a27" Guid="{3E6DFC75-05CF-57FC-A420-9DF40D680146}" Win64="yes">
+                  <File Id="fil_qt_hu_qm_9d8d9b328a27" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_hu.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_it_qm_cfc3d8c37b11" Guid="{D5E0154F-5C03-5D16-8CDE-9B0F021FC49E}" Win64="yes">
+                  <File Id="fil_qt_it_qm_cfc3d8c37b11" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_it.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_ja_qm_3cb8e02a1e50" Guid="{ABA87EA4-1E22-5774-A570-C8309529AA67}" Win64="yes">
+                  <File Id="fil_qt_ja_qm_3cb8e02a1e50" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_ja.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_ka_qm_01f90b6239f7" Guid="{D28CA625-9D1C-5948-BB0F-D18AD762F288}" Win64="yes">
+                  <File Id="fil_qt_ka_qm_01f90b6239f7" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_ka.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_ko_qm_a3954f4828a1" Guid="{F8327F85-8A22-5EA3-9126-61A1BC785E84}" Win64="yes">
+                  <File Id="fil_qt_ko_qm_a3954f4828a1" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_ko.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_lg_qm_75fde8615f23" Guid="{372650FF-2C66-55CA-B46B-6D475BA0BEAD}" Win64="yes">
+                  <File Id="fil_qt_lg_qm_75fde8615f23" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_lg.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_lt_qm_063b42634d0a" Guid="{CFD3448C-8429-52B1-813B-91CA4D7B6AE2}" Win64="yes">
+                  <File Id="fil_qt_lt_qm_063b42634d0a" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_lt.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_lv_qm_b4ed5e5a8378" Guid="{3810E1FD-7D6B-5245-89E5-5BA33ED43A66}" Win64="yes">
+                  <File Id="fil_qt_lv_qm_b4ed5e5a8378" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_lv.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_nl_qm_4a4f37941318" Guid="{7B03D6A2-D35C-52DF-81C8-AE86A9960887}" Win64="yes">
+                  <File Id="fil_qt_nl_qm_4a4f37941318" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_nl.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_nn_qm_135ae9715d08" Guid="{372BD4E5-7781-5AD0-AE04-282850BA82CD}" Win64="yes">
+                  <File Id="fil_qt_nn_qm_135ae9715d08" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_nn.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_pl_qm_77a8996b15cc" Guid="{04DFB12D-3F89-58D1-A87D-E93FFE56FD64}" Win64="yes">
+                  <File Id="fil_qt_pl_qm_77a8996b15cc" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_pl.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_pt_BR_qm_c861a718cc1a" Guid="{3687B1BE-60D2-5E1D-9814-DB6C32A2ED1B}" Win64="yes">
+                  <File Id="fil_qt_pt_BR_qm_c861a718cc1a" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_pt_BR.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_pt_PT_qm_0171e86c37df" Guid="{B8EDCF58-A776-5A7C-B184-F84C561C810F}" Win64="yes">
+                  <File Id="fil_qt_pt_PT_qm_0171e86c37df" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_pt_PT.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_ru_qm_473ce24d00f5" Guid="{E6551E2E-1B93-519E-AC43-B77EE21B2D1C}" Win64="yes">
+                  <File Id="fil_qt_ru_qm_473ce24d00f5" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_ru.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_sk_qm_3f1a43af0fdd" Guid="{B5752C2D-DF99-5634-82EE-ADB2A0F36532}" Win64="yes">
+                  <File Id="fil_qt_sk_qm_3f1a43af0fdd" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_sk.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_sl_qm_dadfd286554a" Guid="{93DC41C2-7583-5FDB-876A-3BFF8CC91686}" Win64="yes">
+                  <File Id="fil_qt_sl_qm_dadfd286554a" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_sl.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_sv_qm_2ef86179cea5" Guid="{0307B235-6D6E-5E5B-BAA8-3B038549E514}" Win64="yes">
+                  <File Id="fil_qt_sv_qm_2ef86179cea5" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_sv.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_tr_qm_f08b58bd19c4" Guid="{B074AD82-055E-54A8-8368-B10E71A8CE46}" Win64="yes">
+                  <File Id="fil_qt_tr_qm_f08b58bd19c4" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_tr.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_uk_qm_0031be48e9c0" Guid="{70746413-F2D4-5EDB-AFF9-3E57D4FA5192}" Win64="yes">
+                  <File Id="fil_qt_uk_qm_0031be48e9c0" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_uk.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_zh_CN_qm_70fb3f154db5" Guid="{2C6AF6E0-0071-5009-9F06-0FBBB9DC36E8}" Win64="yes">
+                  <File Id="fil_qt_zh_CN_qm_70fb3f154db5" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_zh_CN.qm" KeyPath="yes" />
+                </Component>
+                <Component Id="cmp_qt_zh_TW_qm_f1d47476238b" Guid="{11E2A510-F5D7-5A8E-9F6F-D4EA6B7AFD23}" Win64="yes">
+                  <File Id="fil_qt_zh_TW_qm_f1d47476238b" Source="dist\SQRT_Gem\_internal\PySide6\translations\qt_zh_TW.qm" KeyPath="yes" />
+                </Component>
+              </Directory>
+            </Directory>
+            <Directory Id="dir_locales_4cfaf2e3d4b1" Name="locales">
+              <Component Id="cmp_en_json_69bde78c4763" Guid="{EA7BFA75-7AFA-5749-AB41-28E824C7010D}" Win64="yes">
+                <File Id="fil_en_json_69bde78c4763" Source="dist\SQRT_Gem\_internal\locales\en.json" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_es_json_5b3fa4dfe538" Guid="{0194492E-8141-54A3-B3E5-E5CCD61A6658}" Win64="yes">
+                <File Id="fil_es_json_5b3fa4dfe538" Source="dist\SQRT_Gem\_internal\locales\es.json" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_ru_json_3cbedf13b3bc" Guid="{0CCF8173-B3BC-5DC4-8BAC-B2BA3D458215}" Win64="yes">
+                <File Id="fil_ru_json_3cbedf13b3bc" Source="dist\SQRT_Gem\_internal\locales\ru.json" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_zh_json_2901913411b1" Guid="{BB7714DE-A0DD-50D9-B2F2-59417FC8446B}" Win64="yes">
+                <File Id="fil_zh_json_2901913411b1" Source="dist\SQRT_Gem\_internal\locales\zh.json" KeyPath="yes" />
+              </Component>
+            </Directory>
+            <Directory Id="dir_shiboken6_ba604d53a7b3" Name="shiboken6">
+              <Component Id="cmp_MSVCP140_dll_1417d1358b34" Guid="{DD8BADCC-A1B3-5CA0-9118-8DF68F9041BF}" Win64="yes">
+                <File Id="fil_MSVCP140_dll_1417d1358b34" Source="dist\SQRT_Gem\_internal\shiboken6\MSVCP140.dll" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_Shiboken_pyd_5322789702df" Guid="{9A0EB53E-34FE-5597-BBBA-CF1490B1B354}" Win64="yes">
+                <File Id="fil_Shiboken_pyd_5322789702df" Source="dist\SQRT_Gem\_internal\shiboken6\Shiboken.pyd" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_shiboken6_abi3_dll_c46478b76c9b" Guid="{15343A18-2939-5AB9-B17D-6FE8DE03CFE8}" Win64="yes">
+                <File Id="fil_shiboken6_abi3_dll_c46478b76c9b" Source="dist\SQRT_Gem\_internal\shiboken6\shiboken6.abi3.dll" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_VCRUNTIME140_dll_96e0e0627a5e" Guid="{05776F5C-E6BF-5D24-9FA3-1532454F5CED}" Win64="yes">
+                <File Id="fil_VCRUNTIME140_dll_96e0e0627a5e" Source="dist\SQRT_Gem\_internal\shiboken6\VCRUNTIME140.dll" KeyPath="yes" />
+              </Component>
+              <Component Id="cmp_VCRUNTIME140_1_dll_9eef45fce079" Guid="{BF09DFF3-BCB5-5857-8565-4EA3C5748AE7}" Win64="yes">
+                <File Id="fil_VCRUNTIME140_1_dll_9eef45fce079" Source="dist\SQRT_Gem\_internal\shiboken6\VCRUNTIME140_1.dll" KeyPath="yes" />
+              </Component>
+            </Directory>
+          </Directory>
+          <Component Id="MainExecutableCmp" Guid="{3E46C374-4C21-4E65-B5E3-72C59CE90C45}" Win64="yes">
+            <File Id="fil_SQRT_Gem_exe" Source="dist\SQRT_Gem\SQRT_Gem.exe" KeyPath="yes" />
+          </Component>
+          <Component Id="LicenseCmp" Guid="{8C9FD1A0-7176-4F15-896B-06381C43F623}" Win64="yes">
+            <File Id="fil_License" Source="LICENSE" KeyPath="yes" />
+          </Component>
         </Directory>
       </Directory>
 
-      <!-- Start Menu Folder -->
+      <!-- Start Menu -->
       <Directory Id="ProgramMenuFolder">
         <Directory Id="ApplicationProgramsFolder" Name="SQRT_Gem" />
       </Directory>
 
-      <!-- Desktop Folder -->
+      <!-- Desktop -->
       <Directory Id="DesktopFolder" Name="Desktop" />
     </Directory>
 
-    <!-- Application Components -->
-    <DirectoryRef Id="INSTALLDIR">
-      <Component Id="MainExecutable" Guid="3E46C374-4C21-4E65-B5E3-72C59CE90C45" Win64="yes">
-        <File Id="SQRT_GemEXE"
-              Source="dist\SQRT_Gem\SQRT_Gem.exe"
-              KeyPath="yes" />
-      </Component>
-
-      <Component Id="AppLicense" Guid="8C9FD1A0-7176-4F15-896B-06381C43F623" Win64="yes">
-        <File Id="LicenseFile"
-              Source="LICENSE"
-              KeyPath="yes" />
-      </Component>
-    </DirectoryRef>
-
-    <!-- Locales Components -->
-    <DirectoryRef Id="LocalesDir">
-      <Component Id="LocalesComponent" Guid="B2C78440-C419-48A5-926B-983D5CF298B7" Win64="yes">
-        <File Id="LocaleEN" Source="locales\en.json" KeyPath="yes" />
-        <File Id="LocaleRU" Source="locales\ru.json" />
-        <File Id="LocaleES" Source="locales\es.json" />
-        <File Id="LocaleZH" Source="locales\zh.json" />
-      </Component>
-    </DirectoryRef>
-
-    <!-- Shortcuts Components -->
+    <!-- Shortcuts -->
     <DirectoryRef Id="ApplicationProgramsFolder">
-      <Component Id="ApplicationShortcuts" Guid="F984E290-7D51-4091-8D99-A0CD5D8C4217">
-        <Shortcut Id="ApplicationStartMenuShortcut"
+      <Component Id="AppShortcuts" Guid="{F984E290-7D51-4091-8D99-A0CD5D8C4217}">
+        <Shortcut Id="StartMenuShortcut"
+                  Name="SQRT_Gem Calculator"
+                  Description="High-Precision Analytical Math Calculator"
+                  Target="[INSTALLDIR]SQRT_Gem.exe"
+                  WorkingDirectory="INSTALLDIR"
+                  Icon="AppIcon.ico" />
+        <Shortcut Id="DesktopShortcut"
+                  Directory="DesktopFolder"
                   Name="SQRT_Gem Calculator"
                   Description="High-Precision Analytical Math Calculator"
                   Target="[INSTALLDIR]SQRT_Gem.exe"
@@ -85,38 +607,189 @@
         <RemoveFolder Id="CleanUpProgramMenu" On="uninstall" />
         <RegistryValue Root="HKCU"
                        Key="Software\SQRT_Gem"
-                       Name="StartMenuShortcut"
+                       Name="Installed"
                        Type="integer"
                        Value="1"
                        KeyPath="yes" />
       </Component>
     </DirectoryRef>
 
-    <DirectoryRef Id="DesktopFolder">
-      <Component Id="DesktopShortcutComponent" Guid="A38FD2B1-4899-4A73-A331-B2C5FE890D32">
-        <Shortcut Id="ApplicationDesktopShortcut"
-                  Name="SQRT_Gem Calculator"
-                  Description="High-Precision Analytical Math Calculator"
-                  Target="[INSTALLDIR]SQRT_Gem.exe"
-                  WorkingDirectory="INSTALLDIR"
-                  Icon="AppIcon.ico" />
-        <RegistryValue Root="HKCU"
-                       Key="Software\SQRT_Gem"
-                       Name="DesktopShortcut"
-                       Type="integer"
-                       Value="1"
-                       KeyPath="yes" />
-      </Component>
-    </DirectoryRef>
-
-    <!-- Feature Definition -->
+    <!-- Features -->
     <Feature Id="MainFeature" Title="SQRT_Gem Application" Level="1">
-      <ComponentRef Id="MainExecutable" />
-      <ComponentRef Id="AppLicense" />
-      <ComponentRef Id="LocalesComponent" />
-      <ComponentRef Id="ApplicationShortcuts" />
-      <ComponentRef Id="DesktopShortcutComponent" />
+      <ComponentRef Id="MainExecutableCmp" />
+      <ComponentRef Id="LicenseCmp" />
+      <ComponentRef Id="AppShortcuts" />
+      <ComponentRef Id="cmp_base_library_zip_040cbfbb3d22" />
+      <ComponentRef Id="cmp_libcrypto_3_dll_5759110a76fb" />
+      <ComponentRef Id="cmp_libffi_8_dll_d0f98f34960c" />
+      <ComponentRef Id="cmp_libssl_3_dll_994ade0f3fe3" />
+      <ComponentRef Id="cmp_python3_dll_c2bcf5ddee5f" />
+      <ComponentRef Id="cmp_python314_dll_ab7adf831312" />
+      <ComponentRef Id="cmp_select_pyd_b492d17c54fb" />
+      <ComponentRef Id="cmp_unicodedata_pyd_83773d9d4c62" />
+      <ComponentRef Id="cmp_VCRUNTIME140_dll_368bf5a0851d" />
+      <ComponentRef Id="cmp_VCRUNTIME140_1_dll_9b87191dab3d" />
+      <ComponentRef Id="cmp__bz2_pyd_ab0157b0ea8d" />
+      <ComponentRef Id="cmp__ctypes_pyd_22a8c685dfe7" />
+      <ComponentRef Id="cmp__decimal_pyd_49872907d4cc" />
+      <ComponentRef Id="cmp__hashlib_pyd_b23841244805" />
+      <ComponentRef Id="cmp__lzma_pyd_1ef2e5d7cc17" />
+      <ComponentRef Id="cmp__socket_pyd_3f02ba2bb378" />
+      <ComponentRef Id="cmp__ssl_pyd_b51983020227" />
+      <ComponentRef Id="cmp__uuid_pyd_0a4e50e834ea" />
+      <ComponentRef Id="cmp__wmi_pyd_71ea95a11158" />
+      <ComponentRef Id="cmp__zstd_pyd_980aafeaf426" />
+      <ComponentRef Id="cmp_MSVCP140_dll_8112d03cf81b" />
+      <ComponentRef Id="cmp_MSVCP140_1_dll_259c875a766c" />
+      <ComponentRef Id="cmp_MSVCP140_2_dll_13e094086b7b" />
+      <ComponentRef Id="cmp_opengl32sw_dll_e332206f2aa9" />
+      <ComponentRef Id="cmp_pyside6_abi3_dll_f9b0da489904" />
+      <ComponentRef Id="cmp_Qt6Core_dll_da95f3afc6ca" />
+      <ComponentRef Id="cmp_Qt6Gui_dll_fdb03704d799" />
+      <ComponentRef Id="cmp_Qt6Network_dll_2053a29897ac" />
+      <ComponentRef Id="cmp_Qt6OpenGL_dll_8e72e562b255" />
+      <ComponentRef Id="cmp_Qt6Pdf_dll_377db8027386" />
+      <ComponentRef Id="cmp_Qt6Qml_dll_e80a88e2a3d6" />
+      <ComponentRef Id="cmp_Qt6QmlMeta_dll_dd3b15736085" />
+      <ComponentRef Id="cmp_Qt6QmlModels_dll_6aa2e200ecf5" />
+      <ComponentRef Id="cmp_Qt6QmlWorkerScript_dll_9cbce8a15a4d" />
+      <ComponentRef Id="cmp_Qt6Quick_dll_0ff9f079aa6e" />
+      <ComponentRef Id="cmp_Qt6Svg_dll_78f0c9c56ca2" />
+      <ComponentRef Id="cmp_Qt6VirtualKeyboard_dll_e7512d59220f" />
+      <ComponentRef Id="cmp_Qt6Widgets_dll_dd244623dfe3" />
+      <ComponentRef Id="cmp_QtCore_pyd_ee38e4e7d77e" />
+      <ComponentRef Id="cmp_QtGui_pyd_041c7489023f" />
+      <ComponentRef Id="cmp_QtNetwork_pyd_d12d8dc7ab1a" />
+      <ComponentRef Id="cmp_QtWidgets_pyd_24f74bcf45ff" />
+      <ComponentRef Id="cmp_VCRUNTIME140_dll_74e1cff435e7" />
+      <ComponentRef Id="cmp_VCRUNTIME140_1_dll_9045fe7cdc0b" />
+      <ComponentRef Id="cmp_qtuiotouchplugin_dll_57ef9420146c" />
+      <ComponentRef Id="cmp_qsvgicon_dll_58af59202aa0" />
+      <ComponentRef Id="cmp_qgif_dll_9708fd52df3d" />
+      <ComponentRef Id="cmp_qicns_dll_1d5d626eabc3" />
+      <ComponentRef Id="cmp_qico_dll_ce204a9246b7" />
+      <ComponentRef Id="cmp_qjpeg_dll_95481ca59165" />
+      <ComponentRef Id="cmp_qpdf_dll_995fc6950a52" />
+      <ComponentRef Id="cmp_qsvg_dll_e6ff17b1a5eb" />
+      <ComponentRef Id="cmp_qtga_dll_77432cdab604" />
+      <ComponentRef Id="cmp_qtiff_dll_a92da37deeca" />
+      <ComponentRef Id="cmp_qwbmp_dll_26bce78c1e45" />
+      <ComponentRef Id="cmp_qwebp_dll_3d892fd2a91b" />
+      <ComponentRef Id="cmp_qnetworklistmanager_dll_7a684481bf42" />
+      <ComponentRef Id="cmp_qtvirtualkeyboardplugin_dll_8e6d36ca1c8b" />
+      <ComponentRef Id="cmp_qdirect2d_dll_26dc576a2a07" />
+      <ComponentRef Id="cmp_qminimal_dll_8fd438da0476" />
+      <ComponentRef Id="cmp_qoffscreen_dll_8f8a8d4c676d" />
+      <ComponentRef Id="cmp_qwindows_dll_8c242c8aae60" />
+      <ComponentRef Id="cmp_qmodernwindowsstyle_dll_3b2591c61dc3" />
+      <ComponentRef Id="cmp_qcertonlybackend_dll_c7791bf7e97c" />
+      <ComponentRef Id="cmp_qopensslbackend_dll_945e3bbee042" />
+      <ComponentRef Id="cmp_qschannelbackend_dll_5953f17be6e9" />
+      <ComponentRef Id="cmp_qtbase_ar_qm_5dcfc7de45ad" />
+      <ComponentRef Id="cmp_qtbase_bg_qm_2df0d60559a1" />
+      <ComponentRef Id="cmp_qtbase_ca_qm_f6fd1c4de68d" />
+      <ComponentRef Id="cmp_qtbase_cs_qm_34daec7f7ce0" />
+      <ComponentRef Id="cmp_qtbase_da_qm_9d6d9918dded" />
+      <ComponentRef Id="cmp_qtbase_de_qm_53d0742abe0e" />
+      <ComponentRef Id="cmp_qtbase_en_qm_edecd8aee002" />
+      <ComponentRef Id="cmp_qtbase_es_qm_4e3d2a969b5e" />
+      <ComponentRef Id="cmp_qtbase_fa_qm_f9de96591c20" />
+      <ComponentRef Id="cmp_qtbase_fi_qm_dbdad4619bd6" />
+      <ComponentRef Id="cmp_qtbase_fr_qm_cb130716a988" />
+      <ComponentRef Id="cmp_qtbase_gd_qm_41bae0758be6" />
+      <ComponentRef Id="cmp_qtbase_he_qm_ca3b70eeaf9d" />
+      <ComponentRef Id="cmp_qtbase_hr_qm_1da486e429b1" />
+      <ComponentRef Id="cmp_qtbase_hu_qm_9cda44dc23bb" />
+      <ComponentRef Id="cmp_qtbase_it_qm_a1ccbfacbb26" />
+      <ComponentRef Id="cmp_qtbase_ja_qm_1cb1a5c4016c" />
+      <ComponentRef Id="cmp_qtbase_ka_qm_b4a1fcbb159a" />
+      <ComponentRef Id="cmp_qtbase_ko_qm_c071068ba179" />
+      <ComponentRef Id="cmp_qtbase_lg_qm_d5c5b7e8c46c" />
+      <ComponentRef Id="cmp_qtbase_lv_qm_b51a849cb814" />
+      <ComponentRef Id="cmp_qtbase_nl_qm_4baf71b5115b" />
+      <ComponentRef Id="cmp_qtbase_nn_qm_6875925d662a" />
+      <ComponentRef Id="cmp_qtbase_pl_qm_25ca5082a749" />
+      <ComponentRef Id="cmp_qtbase_pt_BR_qm_71a3a3dd5f35" />
+      <ComponentRef Id="cmp_qtbase_ru_qm_ea7fcdf13455" />
+      <ComponentRef Id="cmp_qtbase_sk_qm_18c306fa3957" />
+      <ComponentRef Id="cmp_qtbase_sv_qm_198fa05279da" />
+      <ComponentRef Id="cmp_qtbase_tr_qm_cc0d967e7082" />
+      <ComponentRef Id="cmp_qtbase_uk_qm_486b5b934e82" />
+      <ComponentRef Id="cmp_qtbase_zh_CN_qm_87f6fa1576d1" />
+      <ComponentRef Id="cmp_qtbase_zh_TW_qm_970b8336cbad" />
+      <ComponentRef Id="cmp_qt_ar_qm_dfa68270604b" />
+      <ComponentRef Id="cmp_qt_bg_qm_d5b6fcd71de5" />
+      <ComponentRef Id="cmp_qt_ca_qm_f5f8d57365c7" />
+      <ComponentRef Id="cmp_qt_cs_qm_8d252f3f952f" />
+      <ComponentRef Id="cmp_qt_da_qm_d89dc1fdf6c1" />
+      <ComponentRef Id="cmp_qt_de_qm_c55c0f6ac6c6" />
+      <ComponentRef Id="cmp_qt_en_qm_955ee5a2765d" />
+      <ComponentRef Id="cmp_qt_es_qm_77fe2cc5941c" />
+      <ComponentRef Id="cmp_qt_fa_qm_71c9e6674c82" />
+      <ComponentRef Id="cmp_qt_fi_qm_6a87bffc9712" />
+      <ComponentRef Id="cmp_qt_fr_qm_ed510c787a8b" />
+      <ComponentRef Id="cmp_qt_gd_qm_e5b6edbf62b5" />
+      <ComponentRef Id="cmp_qt_gl_qm_db206e50d5e2" />
+      <ComponentRef Id="cmp_qt_he_qm_abe504935055" />
+      <ComponentRef Id="cmp_qt_help_ar_qm_54b5268a9417" />
+      <ComponentRef Id="cmp_qt_help_bg_qm_ddeec537e58d" />
+      <ComponentRef Id="cmp_qt_help_ca_qm_42c1dc78645f" />
+      <ComponentRef Id="cmp_qt_help_cs_qm_5f66f5bcdfe9" />
+      <ComponentRef Id="cmp_qt_help_da_qm_a9b91b086d40" />
+      <ComponentRef Id="cmp_qt_help_de_qm_a00fcb4f67b4" />
+      <ComponentRef Id="cmp_qt_help_en_qm_227e904f52ab" />
+      <ComponentRef Id="cmp_qt_help_es_qm_cf70c637b314" />
+      <ComponentRef Id="cmp_qt_help_fr_qm_e3de082275f9" />
+      <ComponentRef Id="cmp_qt_help_gl_qm_9ad20349f7be" />
+      <ComponentRef Id="cmp_qt_help_hr_qm_067b534cb57d" />
+      <ComponentRef Id="cmp_qt_help_hu_qm_a2bfa336acb2" />
+      <ComponentRef Id="cmp_qt_help_it_qm_de9cf88362e3" />
+      <ComponentRef Id="cmp_qt_help_ja_qm_741fc8717fe7" />
+      <ComponentRef Id="cmp_qt_help_ka_qm_804a5d9c4c62" />
+      <ComponentRef Id="cmp_qt_help_ko_qm_97e788b8fec9" />
+      <ComponentRef Id="cmp_qt_help_nl_qm_8d227efa27d3" />
+      <ComponentRef Id="cmp_qt_help_nn_qm_dc74bccc3140" />
+      <ComponentRef Id="cmp_qt_help_pl_qm_8b9e957847e8" />
+      <ComponentRef Id="cmp_qt_help_pt_BR_qm_fe097bc667c9" />
+      <ComponentRef Id="cmp_qt_help_ru_qm_e86c5b40b204" />
+      <ComponentRef Id="cmp_qt_help_sk_qm_23b4af3f6121" />
+      <ComponentRef Id="cmp_qt_help_sl_qm_350e50d90f80" />
+      <ComponentRef Id="cmp_qt_help_sv_qm_3f8d1dcbd48a" />
+      <ComponentRef Id="cmp_qt_help_tr_qm_d199d5049aa2" />
+      <ComponentRef Id="cmp_qt_help_uk_qm_2be369a5ba02" />
+      <ComponentRef Id="cmp_qt_help_zh_CN_qm_dab7704249ad" />
+      <ComponentRef Id="cmp_qt_help_zh_TW_qm_561291463527" />
+      <ComponentRef Id="cmp_qt_hr_qm_d45f29da32a4" />
+      <ComponentRef Id="cmp_qt_hu_qm_9d8d9b328a27" />
+      <ComponentRef Id="cmp_qt_it_qm_cfc3d8c37b11" />
+      <ComponentRef Id="cmp_qt_ja_qm_3cb8e02a1e50" />
+      <ComponentRef Id="cmp_qt_ka_qm_01f90b6239f7" />
+      <ComponentRef Id="cmp_qt_ko_qm_a3954f4828a1" />
+      <ComponentRef Id="cmp_qt_lg_qm_75fde8615f23" />
+      <ComponentRef Id="cmp_qt_lt_qm_063b42634d0a" />
+      <ComponentRef Id="cmp_qt_lv_qm_b4ed5e5a8378" />
+      <ComponentRef Id="cmp_qt_nl_qm_4a4f37941318" />
+      <ComponentRef Id="cmp_qt_nn_qm_135ae9715d08" />
+      <ComponentRef Id="cmp_qt_pl_qm_77a8996b15cc" />
+      <ComponentRef Id="cmp_qt_pt_BR_qm_c861a718cc1a" />
+      <ComponentRef Id="cmp_qt_pt_PT_qm_0171e86c37df" />
+      <ComponentRef Id="cmp_qt_ru_qm_473ce24d00f5" />
+      <ComponentRef Id="cmp_qt_sk_qm_3f1a43af0fdd" />
+      <ComponentRef Id="cmp_qt_sl_qm_dadfd286554a" />
+      <ComponentRef Id="cmp_qt_sv_qm_2ef86179cea5" />
+      <ComponentRef Id="cmp_qt_tr_qm_f08b58bd19c4" />
+      <ComponentRef Id="cmp_qt_uk_qm_0031be48e9c0" />
+      <ComponentRef Id="cmp_qt_zh_CN_qm_70fb3f154db5" />
+      <ComponentRef Id="cmp_qt_zh_TW_qm_f1d47476238b" />
+      <ComponentRef Id="cmp_en_json_69bde78c4763" />
+      <ComponentRef Id="cmp_es_json_5b3fa4dfe538" />
+      <ComponentRef Id="cmp_ru_json_3cbedf13b3bc" />
+      <ComponentRef Id="cmp_zh_json_2901913411b1" />
+      <ComponentRef Id="cmp_MSVCP140_dll_1417d1358b34" />
+      <ComponentRef Id="cmp_Shiboken_pyd_5322789702df" />
+      <ComponentRef Id="cmp_shiboken6_abi3_dll_c46478b76c9b" />
+      <ComponentRef Id="cmp_VCRUNTIME140_dll_96e0e0627a5e" />
+      <ComponentRef Id="cmp_VCRUNTIME140_1_dll_9eef45fce079" />
     </Feature>
-
   </Product>
 </Wix>
