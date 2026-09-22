@@ -134,10 +134,13 @@ jobs:
 
       - name: Install WiX Toolset (Windows)
         if: runner.os == 'Windows'
+        shell: powershell
         run: |
-          choco install wixtoolset -y
-          echo "C:\Program Files (x86)\WiX Toolset v3.11\bin" >> $env:GITHUB_PATH
-          echo "C:\ProgramData\chocolatey\bin" >> $env:GITHUB_PATH
+          $wixZip = "$env:TEMP\wix311.zip"
+          Invoke-WebRequest -Uri "https://github.com/wixtoolset/wix3/releases/download/wix3112rtm/wix311-binaries.zip" -OutFile $wixZip
+          Expand-Archive -Path $wixZip -DestinationPath "C:\tools\wix" -Force
+          echo "C:\tools\wix" >> $env:GITHUB_PATH
+
 
 
       # Windows: Build Executable & MSI Installer

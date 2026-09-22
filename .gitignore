@@ -9,6 +9,7 @@ build/
 develop-eggs/
 dist/
 dist_installer/
+*.spec
 downloads/
 eggs/
 .eggs/
