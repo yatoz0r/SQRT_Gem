@@ -91,142 +91,116 @@ QTextEdit, QTextBrowser {
     font-size: 13px;
 }
 
-/* Modern Keypad Buttons Hierarchy */
+/* Modern Keypad Buttons Hierarchy - Clean, De-slopped, Unified */
 QPushButton {
-    background-color: #1c1e27;
+    background-color: #1a1c24;
     color: #e2e8f0;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 8px;
-    padding: 8px 16px;
+    border-radius: 6px;
+    padding: 6px 12px;
     font-size: 13px;
     font-weight: 500;
 }
 
 QPushButton:hover {
-    background-color: #262935;
+    background-color: #242834;
     border-color: rgba(255, 255, 255, 0.16);
     color: #ffffff;
 }
 
 QPushButton:pressed {
-    background-color: #161820;
-    padding-top: 10px;
-    padding-bottom: 6px;
+    background-color: #14151c;
+    padding-top: 8px;
+    padding-bottom: 4px;
 }
 
-/* Numerical Keys: Neutral, solid, clean */
+/* Numerical Keys: Calm neutral surface */
 QPushButton#btn_num {
     background-color: #181921;
-    color: #f1f5f9;
-    font-size: 16px;
+    color: #f8fafc;
+    font-size: 15px;
     font-weight: 600;
     border: 1px solid rgba(255, 255, 255, 0.07);
-    border-radius: 8px;
-    min-height: 42px;
+    border-radius: 6px;
 }
 
 QPushButton#btn_num:hover {
-    background-color: #232531;
+    background-color: #222430;
     border-color: rgba(255, 255, 255, 0.15);
 }
 
 QPushButton#btn_num:pressed {
     background-color: #121319;
-    padding-top: 10px;
+    padding-top: 8px;
 }
 
-/* Operators (+, -, *, /, ^): Distinct soft slate surface */
-QPushButton#btn_op {
-    background-color: #1e2230;
-    color: #93c5fd;
-    font-size: 15px;
-    font-weight: 600;
-    border: 1px solid rgba(147, 197, 253, 0.15);
-    border-radius: 8px;
-    min-height: 42px;
-}
-
-QPushButton#btn_op:hover {
-    background-color: #292f44;
-    border-color: rgba(147, 197, 253, 0.3);
-    color: #bfdbfe;
-}
-
-QPushButton#btn_op:pressed {
-    background-color: #181a26;
-    padding-top: 10px;
-}
-
-/* Advanced Functions (sqrt, abs, ln, exp, pi, e): Subtle Violet Tint */
-QPushButton#btn_func {
-    background-color: #201f2e;
-    color: #c4b5fd;
-    font-size: 13px;
-    font-weight: 600;
-    border: 1px solid rgba(196, 181, 253, 0.15);
-    border-radius: 8px;
-    min-height: 42px;
-}
-
-QPushButton#btn_func:hover {
-    background-color: #2d2a42;
-    border-color: rgba(196, 181, 253, 0.3);
-    color: #ddd6fe;
-}
-
-QPushButton#btn_func:pressed {
-    background-color: #181724;
-    padding-top: 10px;
-}
-
-/* Action Button: Clear (C) - Restrained Coral / Danger */
-QPushButton#btn_clear {
-    background-color: rgba(239, 68, 68, 0.12);
-    color: #fca5a5;
+/* Operators & Mathematical Functions: Restrained Slate */
+QPushButton#btn_op, QPushButton#btn_func {
+    background-color: #20232e;
+    color: #cbd5e1;
     font-size: 14px;
-    font-weight: 600;
-    border: 1px solid rgba(239, 68, 68, 0.25);
-    border-radius: 8px;
-    min-height: 42px;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+}
+
+QPushButton#btn_op:hover, QPushButton#btn_func:hover {
+    background-color: #2b2f3e;
+    border-color: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+}
+
+QPushButton#btn_op:pressed, QPushButton#btn_func:pressed {
+    background-color: #181a24;
+    padding-top: 8px;
+}
+
+/* Clear (C): Cohesive neutral */
+QPushButton#btn_clear {
+    background-color: #20232e;
+    color: #e2e8f0;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
 }
 
 QPushButton#btn_clear:hover {
-    background-color: rgba(239, 68, 68, 0.22);
-    border-color: rgba(239, 68, 68, 0.4);
-    color: #fecaca;
+    background-color: #2b2f3e;
+    border-color: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
 }
 
 QPushButton#btn_clear:pressed {
-    background-color: rgba(239, 68, 68, 0.08);
-    padding-top: 10px;
+    background-color: #181a24;
+    padding-top: 8px;
 }
 
-/* Action Button: Equals (=) - Confident Indigo Primary Accent */
+/* Primary Accent: Equals (=) & Main Actions - Single Solid Accent */
 QPushButton#btn_primary, QPushButton#btn_equals {
-    background-color: #6366f1;
+    background-color: #4f46e5;
     color: #ffffff;
-    font-size: 16px;
-    font-weight: 700;
-    border: none;
-    border-radius: 8px;
-    min-height: 42px;
+    font-size: 15px;
+    font-weight: 600;
+    border: 1px solid #4338ca;
+    border-radius: 6px;
 }
 
 QPushButton#btn_primary:hover, QPushButton#btn_equals:hover {
-    background-color: #4f46e5;
+    background-color: #4338ca;
 }
 
 QPushButton#btn_primary:pressed, QPushButton#btn_equals:pressed {
-    background-color: #4338ca;
-    padding-top: 10px;
+    background-color: #3730a3;
+    padding-top: 8px;
 }
 
 /* Card Containers & Group Boxes */
 QFrame#surface_card {
     background-color: #14151c;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-    padding: 12px;
+    border-radius: 10px;
+    padding: 10px;
 }
 
 /* Precision Slider (Crafted Track & Thumb) */
@@ -438,102 +412,78 @@ QPushButton:hover {
 
 QPushButton:pressed {
     background-color: #cbd5e1;
-    padding-top: 10px;
-    padding-bottom: 6px;
+    padding-top: 8px;
+    padding-bottom: 4px;
 }
 
-/* Numerical Keys */
+/* Numerical Keys: Clean white cards */
 QPushButton#btn_num {
     background-color: #ffffff;
     color: #0f172a;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    min-height: 42px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
 }
 
 QPushButton#btn_num:hover {
-    background-color: #f8fafc;
-    border-color: #cbd5e1;
+    background-color: #f1f5f9;
+    border-color: #94a3b8;
 }
 
 QPushButton#btn_num:pressed {
+    background-color: #e2e8f0;
+    padding-top: 8px;
+}
+
+/* Operators & Mathematical Functions: Restrained Light Slate */
+QPushButton#btn_op, QPushButton#btn_func {
     background-color: #f1f5f9;
-    padding-top: 10px;
-}
-
-/* Operators */
-QPushButton#btn_op {
-    background-color: #eff6ff;
-    color: #1d4ed8;
-    font-size: 15px;
-    font-weight: 600;
-    border: 1px solid #bfdbfe;
-    border-radius: 8px;
-    min-height: 42px;
-}
-
-QPushButton#btn_op:hover {
-    background-color: #dbeafe;
-    color: #1e40af;
-}
-
-QPushButton#btn_op:pressed {
-    background-color: #bfdbfe;
-    padding-top: 10px;
-}
-
-/* Advanced Functions */
-QPushButton#btn_func {
-    background-color: #faf5ff;
-    color: #7e22ce;
-    font-size: 13px;
-    font-weight: 600;
-    border: 1px solid #e9d5ff;
-    border-radius: 8px;
-    min-height: 42px;
-}
-
-QPushButton#btn_func:hover {
-    background-color: #f3e8ff;
-    color: #6b21a8;
-}
-
-QPushButton#btn_func:pressed {
-    background-color: #e9d5ff;
-    padding-top: 10px;
-}
-
-/* Action: Clear */
-QPushButton#btn_clear {
-    background-color: #fff1f2;
-    color: #e11d48;
+    color: #1e293b;
     font-size: 14px;
-    font-weight: 600;
-    border: 1px solid #fecdd3;
-    border-radius: 8px;
-    min-height: 42px;
+    font-weight: 500;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+}
+
+QPushButton#btn_op:hover, QPushButton#btn_func:hover {
+    background-color: #e2e8f0;
+    color: #0f172a;
+}
+
+QPushButton#btn_op:pressed, QPushButton#btn_func:pressed {
+    background-color: #cbd5e1;
+    padding-top: 8px;
+}
+
+/* Action: Clear (C) */
+QPushButton#btn_clear {
+    background-color: #f1f5f9;
+    color: #334155;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
 }
 
 QPushButton#btn_clear:hover {
-    background-color: #ffe4e6;
+    background-color: #e2e8f0;
+    color: #0f172a;
 }
 
 QPushButton#btn_clear:pressed {
-    background-color: #fecdd3;
-    padding-top: 10px;
+    background-color: #cbd5e1;
+    padding-top: 8px;
 }
 
-/* Action: Equals */
+/* Action: Equals (=) - Single Solid Accent */
 QPushButton#btn_primary, QPushButton#btn_equals {
     background-color: #4f46e5;
     color: #ffffff;
-    font-size: 16px;
-    font-weight: 700;
-    border: none;
-    border-radius: 8px;
-    min-height: 42px;
+    font-size: 15px;
+    font-weight: 600;
+    border: 1px solid #4338ca;
+    border-radius: 6px;
 }
 
 QPushButton#btn_primary:hover, QPushButton#btn_equals:hover {
@@ -542,15 +492,15 @@ QPushButton#btn_primary:hover, QPushButton#btn_equals:hover {
 
 QPushButton#btn_primary:pressed, QPushButton#btn_equals:pressed {
     background-color: #3730a3;
-    padding-top: 10px;
+    padding-top: 8px;
 }
 
 /* Card Containers */
 QFrame#surface_card {
     background-color: #ffffff;
     border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 12px;
+    border-radius: 10px;
+    padding: 10px;
 }
 
 /* Slider */

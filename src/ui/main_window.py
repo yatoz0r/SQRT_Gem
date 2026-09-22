@@ -27,8 +27,8 @@ class MainWindow(QMainWindow):
         self.i18n.subscribe(self._on_language_changed)
 
     def _init_ui(self):
-        self.resize(920, 680)
-        self.setMinimumSize(780, 560)
+        self.resize(940, 720)
+        self.setMinimumSize(800, 600)
 
         self.tabs = QTabWidget()
         self.setCentralWidget(self.tabs)

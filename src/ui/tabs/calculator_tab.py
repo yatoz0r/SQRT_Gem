@@ -95,8 +95,8 @@ class CalculatorTab(QWidget):
 
         for text, row, col in buttons:
             btn = QPushButton(text)
-            btn.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
-            btn.setMinimumHeight(42)
+            btn.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+            btn.setMinimumHeight(36)
 
             if text in numbers:
                 btn.setObjectName("btn_num")
@@ -116,6 +116,11 @@ class CalculatorTab(QWidget):
             else:
                 btn.clicked.connect(lambda _, t=text: self._append_to_expression(t))
             keypad_layout.addWidget(btn, row, col)
+
+        for r in range(5):
+            keypad_layout.setRowStretch(r, 1)
+        for c in range(5):
+            keypad_layout.setColumnStretch(c, 1)
 
         main_layout.addLayout(keypad_layout)
 
