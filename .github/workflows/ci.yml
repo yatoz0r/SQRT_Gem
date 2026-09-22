@@ -2,7 +2,6 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, develop ]
     tags: [ 'v*' ]
   pull_request:
     branches: [ main, develop ]
@@ -59,16 +58,25 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
 
-      - name: Run Pytest with Coverage
-        shell: bash
-        env:
-          QT_QPA_PLATFORM: offscreen
+      - name: Run Pytest with Coverage (Linux)
+        if: runner.os == 'Linux'
         run: |
-          if [ "$RUNNER_OS" == "Linux" ]; then
-            xvfb-run -a python -m pytest -v --tb=short
-          else
-            python -m pytest -v --tb=short
+          xvfb-run -a python -m pytest -v --tb=short 2>&1 | tee pytest_output.log
+
+      - name: Publish Test Summary (Linux)
+        if: always() && runner.os == 'Linux'
+        run: |
+          if [ -f pytest_output.log ]; then
+            echo '### Pytest Execution Summary' >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            tail -n 120 pytest_output.log >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
           fi
+
+      - name: Run Pytest with Coverage (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          python -m pytest -v --tb=short
 
       - name: Upload coverage report
         if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.11'
