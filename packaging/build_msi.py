@@ -156,13 +156,16 @@ def generate_wxs(project_root: Path, dist_dir: Path, output_wxs: Path) -> list:
     # Insert generated files and directories
     xml_lines.extend(dir_xml_lines)
 
-    # Main Executable & License
+    # Main Executable, License & Uninstall Cleanup Script
     xml_lines.extend([
         '          <Component Id="MainExecutableCmp" Guid="{3E46C374-4C21-4E65-B5E3-72C59CE90C45}" Win64="yes">',
         '            <File Id="fil_SQRT_Gem_exe" Source="dist\\SQRT_Gem\\SQRT_Gem.exe" KeyPath="yes" />',
         '          </Component>',
         '          <Component Id="LicenseCmp" Guid="{8C9FD1A0-7176-4F15-896B-06381C43F623}" Win64="yes">',
         '            <File Id="fil_License" Source="LICENSE" KeyPath="yes" />',
+        '          </Component>',
+        '          <Component Id="UninstallCleanupCmp" Guid="{A1B2C3D4-E5F6-4A7B-8C9D-0E1F2A3B4C5D}" Win64="yes">',
+        '            <File Id="fil_UninstallCleanup" Source="packaging\\uninstall_cleanup.ps1" KeyPath="yes" />',
         '          </Component>',
         '        </Directory>',
         '      </Directory>',
@@ -202,10 +205,24 @@ def generate_wxs(project_root: Path, dist_dir: Path, output_wxs: Path) -> list:
         '      </Component>',
         '    </DirectoryRef>',
         '',
+        '    <!-- Custom Action: Clean AppData on Uninstall (Section 10 of TZ_1.md) -->',
+        '    <CustomAction Id="CleanUserDataAction"',
+        '                  Directory="TARGETDIR"',
+        '                  ExeCommand="powershell.exe -ExecutionPolicy Bypass -NoProfile -WindowStyle Hidden -File &quot;[INSTALLDIR]uninstall_cleanup.ps1&quot;"',
+        '                  Execute="immediate"',
+        '                  Return="ignore" />',
+        '',
+        '    <InstallExecuteSequence>',
+        '      <Custom Action="CleanUserDataAction" Before="RemoveFiles">',
+        '        (NOT UPGRADINGPRODUCTCODE) AND (REMOVE=&quot;ALL&quot;)',
+        '      </Custom>',
+        '    </InstallExecuteSequence>',
+        '',
         '    <!-- Features -->',
         '    <Feature Id="MainFeature" Title="SQRT_Gem Application" Level="1">',
         '      <ComponentRef Id="MainExecutableCmp" />',
         '      <ComponentRef Id="LicenseCmp" />',
+        '      <ComponentRef Id="UninstallCleanupCmp" />',
         '      <ComponentRef Id="AppShortcuts" />',
     ])
 

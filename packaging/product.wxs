@@ -576,6 +576,9 @@
           <Component Id="LicenseCmp" Guid="{8C9FD1A0-7176-4F15-896B-06381C43F623}" Win64="yes">
             <File Id="fil_License" Source="LICENSE" KeyPath="yes" />
           </Component>
+          <Component Id="UninstallCleanupCmp" Guid="{A1B2C3D4-E5F6-4A7B-8C9D-0E1F2A3B4C5D}" Win64="yes">
+            <File Id="fil_UninstallCleanup" Source="packaging\uninstall_cleanup.ps1" KeyPath="yes" />
+          </Component>
         </Directory>
       </Directory>
 
@@ -614,10 +617,24 @@
       </Component>
     </DirectoryRef>
 
+    <!-- Custom Action: Clean AppData on Uninstall (Section 10 of TZ_1.md) -->
+    <CustomAction Id="CleanUserDataAction"
+                  Directory="TARGETDIR"
+                  ExeCommand="powershell.exe -ExecutionPolicy Bypass -NoProfile -WindowStyle Hidden -File &quot;[INSTALLDIR]uninstall_cleanup.ps1&quot;"
+                  Execute="immediate"
+                  Return="ignore" />
+
+    <InstallExecuteSequence>
+      <Custom Action="CleanUserDataAction" Before="RemoveFiles">
+        (NOT UPGRADINGPRODUCTCODE) AND (REMOVE=&quot;ALL&quot;)
+      </Custom>
+    </InstallExecuteSequence>
+
     <!-- Features -->
     <Feature Id="MainFeature" Title="SQRT_Gem Application" Level="1">
       <ComponentRef Id="MainExecutableCmp" />
       <ComponentRef Id="LicenseCmp" />
+      <ComponentRef Id="UninstallCleanupCmp" />
       <ComponentRef Id="AppShortcuts" />
       <ComponentRef Id="cmp_base_library_zip_040cbfbb3d22" />
       <ComponentRef Id="cmp_libcrypto_3_dll_5759110a76fb" />
