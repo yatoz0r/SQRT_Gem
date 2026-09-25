@@ -85,7 +85,7 @@ class CalculatorTab(QWidget):
         keypad_layout.setSpacing(6)
         buttons = [
             ("sqrt(", 0, 0), ("^", 0, 1), ("(", 0, 2), (")", 0, 3), ("/", 0, 4),
-            ("abs(", 1, 0), ("ln(", 1, 1), ("pi", 1, 2), ("e", 1, 3), ("*", 1, 4),
+            ("abs(", 1, 0), ("pi", 1, 1), ("e", 1, 2), ("i", 1, 3), ("*", 1, 4),
             ("7", 2, 0), ("8", 2, 1), ("9", 2, 2), ("-", 2, 3), ("+", 2, 4),
             ("4", 3, 0), ("5", 3, 1), ("6", 3, 2), ("0", 3, 3), (".", 3, 4),
             ("1", 4, 0), ("2", 4, 1), ("3", 4, 2), ("C", 4, 3), ("=", 4, 4)
@@ -93,7 +93,8 @@ class CalculatorTab(QWidget):
 
         numbers = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."}
         ops = {"+", "-", "*", "/", "^", "(", ")"}
-        funcs = {"sqrt(", "abs(", "ln(", "exp(", "pi", "e"}
+        funcs = {"sqrt(", "abs(", "ln(", "exp(", "pi", "e", "i"}
+
 
         for text, row, col in buttons:
             btn = QPushButton(text)
@@ -199,8 +200,9 @@ class CalculatorTab(QWidget):
         self.error_frame.setVisible(False)
 
         try:
-            result: CalculationResult = self.engine.evaluate(expr, precision=precision)
+            result: CalculationResult = self.engine.evaluate(expr, precision=precision, allow_complex=True)
             self.txt_result.setText(result.formatted_value)
+
 
             # Update metrics
             time_txt = tr("label_calc_time", time=result.elapsed_ms)

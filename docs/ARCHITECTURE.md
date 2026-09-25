@@ -1,199 +1,137 @@
-# Архитектурная документация проекта "Калькулятор высокой точности" (SQRT_Gem)
+# Техническая документация архитектуры (System Architecture Document)
+## Проект: SQRT_Gem (High-Precision Analytical Math Engine)
 
-## 1. Введение и назначение системы
-
-### 1.1. Назначение программного продукта
-Программный продукт **SQRT_Gem** представляет собой настольное приложение для выполнения высокоточных математических вычислений произвольной разрядности (до 1000 знаков после запятой и более) с графическим интерфейсом пользователя, развитой системой самодиагностики, поддержкой полиязычности (RU, EN, ES, ZH), непрерывным сохранением истории операций и встроенным механизмом проверки обновлений.
-
-Проект спроектирован в строгом соответствии с принципами **Clean Architecture** (Роберт Мартин), **Clean Code** и **SOLID**, обеспечивая полную изоляцию математического ядра от GUI-фреймворка (PySide6), файлового хранилища и операционной системы.
-
-### 1.2. Область применения и целевая аудитория
-1. **Обычный пользователь:** выполнение повседневных и инженерных расчетов, вычисление корней и составных выражений с интуитивным визуальным интерфейсом.
-2. **Технический специалист / Исследователь:** воспроизводимые вычисления с гарантированной точностью до 1000 знаков, исключающие артефакты плавающей точки IEEE 754.
-3. **Системный администратор / Пользователь при развертывании:** установка, портативный запуск, бесшовное обновление и корректная деинсталляция без остаточного замусоривания ОС.
-4. **Служба технической поддержки (L1/L2):** локализация сбоев с помощью встроенного диагностического центра, генерация деперсонализированных отчетов об ошибках.
+> **Document Status:** Approved / Production-Ready  
+> **Engineering Standard:** Google Technical Documentation Style  
+> **Architecture Pattern:** Clean Architecture (Hexagonal / Ports & Adapters)  
+> **Target Lifecycle:** 10-Year Long-Term Support (LTS: 2026–2036)  
 
 ---
 
-## 2. Архитектурные уровни (Clean Architecture)
+## 1. Обзор системы (System Overview)
 
-Система разделена на четыре концентрических слоя с направлением зависимостей снаружи внутрь (Dependency Inversion Principle). Внутренние слои не знают ничего о существовании внешних слоев.
+### 1.1. Назначение и масштаб
+**SQRT_Gem** — настольная кроссплатформенная вычислительная система высокой точности, спроектированная для прецизионных аналитических расчетов в диапазоне от 0 до 2000 знаков после запятой с поддержкой сверхдлинных операндов (1000+ десятичных разрядов), действительных и комплексных чисел.
 
+Система устраняет фундаментальные ограничения машинного представления чисел с плавающей точкой стандарта IEEE 754 (`float64`, `double`), гарантируя математическую детерминированность вычислений.
+
+### 1.2. Архитектурные принципы
+1. **Независимость от фреймворков (Framework Independence):** Вычислительное ядро полностью изолировано от PySide6/Qt и внешних сторонних библиотек.
+2. **Тестируемость (Testability):** Бизнес-правила верифицируются без запуска GUI, виртуального X-сервера или сетевых интерфейсов.
+3. **Независимость от пользовательского интерфейса (UI Independence):** GUI может быть заменен на Web, CLI или RPC-сервис без модификации доменных сущностей.
+4. **Отказоустойчивость и безопасность (Reliability & Security):** Нулевое использование `eval()` / `exec()`, строгий синтаксический анализ на базе AST, атомарный ввод-вывод.
+
+---
+
+## 2. Архитектурные уровни (Clean Architecture Layers)
+
+```mermaid
+graph TD
+    subgraph Layer4["4. Frameworks & Drivers (Инфраструктура)"]
+        QtGUI["PySide6 Qt GUI"]
+        FileSystem["JSON File Storage (APPDATA)"]
+        Network["GitHub Releases API (HTTPS)"]
+        OS["Windows / Linux OS API"]
+    end
+
+    subgraph Layer3["3. Interface Adapters (Адаптеры интерфейсов)"]
+        Controllers["UI Controllers (Calculator, History, Settings, Diagnostics)"]
+        Repositories["ConfigManager, HistoryManager"]
+        Presenters["LocalizationService (i18n), UpdateChecker"]
+    end
+
+    subgraph Layer2["2. Application Business Rules (Сценарии использования)"]
+        UseCases["CalculateExpression, ExportSupportBundle, CheckUpdates, SelfRecovery"]
+    end
+
+    subgraph Layer1["1. Enterprise Domain Core (Вычислительное ядро)"]
+        Lexer["Lexer (Stream Tokenizer)"]
+        Parser["Parser (AST Builder)"]
+        DecimalMath["DecimalMathEngine (Arbitrary Precision)"]
+        ComplexMath["DecimalComplexEngine (Arbitrary-Length Complex Numbers)"]
+        Exceptions["Domain Exception Hierarchy (28 Classes)"]
+    end
+
+    QtGUI --> Controllers
+    FileSystem --> Repositories
+    Network --> Presenters
+    Controllers --> UseCases
+    Repositories --> UseCases
+    Presenters --> UseCases
+    UseCases --> Lexer
+    UseCases --> Parser
+    UseCases --> DecimalMath
+    UseCases --> ComplexMath
+    UseCases --> Exceptions
 ```
-+-----------------------------------------------------------------------+
-| 4. Frameworks & Drivers                                               |
-|    - PySide6 (Qt Widgets, Event Loop, QThread)                        |
-|    - FileSystem (JSON files, Atomic Writer, Temporary Files)          |
-|    - Network (UpdateChecker via HTTP/HTTPS)                           |
-|    - OS Environment (Platform, CPU, Memory telemetries)               |
-+------------------------------------+----------------------------------+
-                                     |
-                                     v
-+-----------------------------------------------------------------------+
-| 3. Interface Adapters                                                 |
-|    - UI Controllers (CalculatorController, HistoryController, etc.)   |
-|    - Gateways & Repositories (HistoryRepository, SettingsRepository)   |
-|    - Presenters & ViewModels (CalculationViewModel, ErrorPresenter)   |
-|    - Localization Provider (JsonLocalizationProvider)                 |
-+------------------------------------+----------------------------------+
-                                     |
-                                     v
-+-----------------------------------------------------------------------+
-| 2. Application Business Rules (Use Cases)                             |
-|    - CalculateExpressionUseCase                                       |
-|    - ManageHistoryUseCase                                             |
-|    - ManageSettingsUseCase                                            |
-|    - RunDiagnosticsUseCase                                            |
-|    - CheckUpdatesUseCase                                              |
-|    - ChangeLanguageUseCase                                            |
-+------------------------------------+----------------------------------+
-                                     |
-                                     v
-+-----------------------------------------------------------------------+
-| 1. Enterprise Business Rules (Entities / Domain Core)                 |
-|    - Domain Models (CalculationRequest, CalculationResult, Precision)  |
-|    - Lexer & Shunting-Yard Parser (Token, TokenType, AST/RPN)         |
-|    - MathEngine (Arbitrary Precision Arithmetic, Newton-Raphson Sqrt) |
-|    - Domain Exceptions (MathDomainError, SyntaxParsingError, etc.)    |
-+-----------------------------------------------------------------------+
-```
 
-### 2.1. Уровень 1: Enterprise Business Rules (Entities / Domain Core)
-Ядро не зависит ни от каких сторонних библиотек (включая PySide6) и содержит чистую бизнес-логику и математические правила.
+### 2.1. Уровень 1: Enterprise Domain Core (Вычислительное ядро)
+- **`Lexer`:** Потоковый детерминированный токенизатор строки на базе алгоритма конечного автомата. Формирует токены `Token(type, value, position)`.
+- **`Parser`:** Синтаксический анализатор на базе алгоритма рекурсивного спуска / Shunting-Yard. Формирует строго типизированное дерево синтаксического анализа (AST):
+  - `NumberNode`, `ConstantNode` (`pi`, `e`, `i`), `UnaryOpNode`, `BinaryOpNode`, `FunctionCallNode` (`sqrt`, `abs`, `ln`, `exp`).
+- **`DecimalMath`:** Высокоточная математическая библиотека на базе встроенного C-модуля `_decimal` с контекстом `ROUND_HALF_UP` и защитными разрядами (`Guard Digits = 10`).
+- **`DecimalComplex`:** Подсистема комплексных чисел произвольной длины $z = a + bi$ ($a, b \in \text{Decimal}$). Реализует прецизионные операции:
+  $$z_1 \pm z_2, \quad z_1 \cdot z_2, \quad \frac{z_1}{z_2}, \quad z^n, \quad |z|, \quad \sqrt{z}$$
+  При $\text{Re}(z) < 0$ извлечение корня $\sqrt{-x}$ переводит вычисления в мнимую плоскость: $\sqrt{-x} = i\sqrt{x}$.
+- **`Domain Exceptions`:** 28 строгих классов исключений с позиционированием символа сбоя.
 
-#### Модели предметной области:
-- `Precision`: Value-object, инкапсулирующий количество знаков после запятой (диапазон 0..1000), правила округления (`ROUND_HALF_UP`) и расчет количества защитных разрядов (Guard Digits).
-- `Token` & `TokenType`: неизменяемые структуры лексера (число, оператор, функция, скобка, позиция в строке).
-- `CalculationRequest`: входные данные вычисления (строковое выражение, целевая точность, временная метка).
-- `CalculationResult`: неизменяемый результат вычисления (строковое представление числа высокой точности, время расчета в миллисекундах, примененная точность).
-- `DiagnosticReport`: структура с результатами проверки целостности подсистем, тестов производительности и состояния файловой системы.
-
-#### Доменные исключения:
-Базовый класс `DomainError(Exception)` и его специализированные наследники:
-- `SyntaxParsingError(DomainError)`: синтаксическая ошибка с указанием индекса символа в строке.
-- `MismatchedParenthesesError(SyntaxParsingError)`: нарушение баланса скобок.
-- `UnknownIdentifierError(SyntaxParsingError)`: неизвестная функция или переменная.
-- `MathDomainError(DomainError)`: математическая ошибка (деление на ноль, извлечение корня из отрицательного числа).
-- `PrecisionOutOfRangeError(DomainError)`: запрос точности вне допустимого интервала (0..1000).
-- `ResourceExhaustionError(DomainError)`: превышение лимитов длины выражения (>4096 символов) или таймаута вычислений (>10 секунд).
-
-### 2.2. Уровень 2: Application Business Rules (Use Cases)
-Содержит прикладные сценарии использования, управляющие потоками данных между сущностями:
-- `CalculateExpressionUseCase`:
-  1. Валидирует входные данные (длину строки, ограничения точности).
-  2. Передает строку в `Lexer` -> получает поток токенов.
-  3. Передает токены в `Parser` -> формирует RPN (обратную польскую нотацию) или дерево выражений.
-  4. Запрашивает расчет у `MathEngine` с установкой защитного контекста `decimal.Context(prec = target + 15)`.
-  5. Квантует результат до требуемой точности `target_precision`.
-  6. Формирует `CalculationResult` и передает его в `IHistoryRepository` для автосохранения.
-- `ManageHistoryUseCase`: получение списка последних вычислений, удаление записей, полная очистка, экспорт в форматы CSV/JSON.
-- `ManageSettingsUseCase`: загрузка настроек при старте, валидация по схеме, сохранение изменений, сброс к фабричным значениям (Factory Reset).
-- `RunDiagnosticsUseCase`: оркестрация комплексной самопроверки окружения (память, процессор, права доступа к файлам, целостность JSON, бенчмарк скорости вычисления sqrt(2) на 1000 знаков), формирование zip-бандла для техподдержки.
-- `CheckUpdatesUseCase`: опрос удаленного шлюза версий, сопоставление SemVer, определение типа обновления (критическое / функциональное).
-- `ChangeLanguageUseCase`: смена текущей локали, проверка наличия ключей, уведомление интерфейсных компонентов.
+### 2.2. Уровень 2: Use Cases (Прикладные сценарии)
+- **`EvaluateExpressionUseCase`:** Оркестрация токенизации, синтаксического разбора, вычисления и форматирования с автоопределением комплексного контекста при наличии единицы $i$.
+- **`ManageStorageUseCase`:** Атомарное сохранение и восстановление конфигурации и истории.
+- **`DiagnosticsWorkflowUseCase`:** Сбор системных метрик, стресс-бенчмарк ядра, генерация архива `support_bundle.zip`.
+- **`UpdatePipelineUseCase`:** Проверка обновлений, скачивание манифеста, валидация контрольной суммы SHA-256.
 
 ### 2.3. Уровень 3: Interface Adapters
-Адаптирует структуры данных между Use Cases и внешними фреймворками:
-- **UI Controllers:**
-  - `CalculatorController`: принимает события от Qt-виджетов, запускает вычисления в фоновом потоке, транслирует результаты или ошибки в Presenter.
-  - `HistoryController`: управляет табличным представлением истории, поиском и операцией повторного использования (reuse) выражения.
-  - `SettingsController`: связывает форму настроек с состоянием приложения.
-  - `DiagnosticsController`: запускает процесс самопроверки и экспорт архива.
-- **Интерфейсы шлюзов (Ports / Interfaces):**
-  - `IHistoryRepository`: контракт сохранения и чтения истории.
-  - `ISettingsRepository`: контракт чтения/записи конфигурации.
-  - `IUpdateGateway`: контракт проверки сетевых обновлений.
-  - `ILocalizationProvider`: контракт загрузки и форматирования строк.
+- **`LocalizationService`:** Загрузчик локалей (`ru.json`, `en.json`, `es.json`, `zh.json`) с мгновенным переключением без перезапуска приложения и fallback на `en`.
+- **`ConfigManager` / `HistoryManager`:** Репозитории с поддержкой Self-Recovery (автоматическое создание дефолтного конфига при повреждении JSON).
 
 ### 2.4. Уровень 4: Frameworks & Drivers
-Внешние механизмы ввода-вывода и библиотеки:
-- **PySide6 UI:** Главное окно `MainWindow`, 4 вкладки (`CalculatorTab`, `HistoryTab`, `SettingsTab`, `DiagnosticsTab`), асинхронные рабочие потоки `QThread` / `QRunnable` для изоляции тяжелых расчетов от GUI-потока.
-- **StorageManager:** Файловый драйвер, обеспечивающий атомарную запись JSON через временные файлы и переименование (`os.replace`), контроль целостности и автоматический откат.
-- **UpdateHttpClient:** HTTP-клиент (на базе `urllib.request` со строгими таймаутами) для загрузки `version.json`.
-- **SystemTelemetryDriver:** Сборщик метрик ОС на базе стандартной библиотеки `platform`, `sys`, `os`, `shutil`.
+- **PySide6 (Qt 6):** Асинхронный графический интерфейс без блокировки главного потока.
+- **Инсталляционные драйверы:** Нативный 64-битный WiX Toolset MSI (Windows) и Debian `dpkg` package (Linux).
 
 ---
 
-## 3. Подробное описание ключевых компонентов
+## 3. Схемы потоков данных (Data Flow Architecture)
 
-### 3.1. Вычислительное ядро (`MathEngine`)
-- **Технологическая основа:** Python стандартный модуль `decimal` с использованием высокопроизводительного C-расширения `_decimal`.
-- **Концепция точности (Раздел 3.3 ТЗ):**
-  1. *Точность хранения (Storage Precision):* Числа в промежуточных вычислениях хранятся как объекты `Decimal` произвольной длины без деградации в `float64`.
-  2. *Точность вычислений (Calculation Precision / Guard Digits):* Для исключения накопления ошибок округления при составных операциях вычисления выполняются в динамическом контексте:
-     $$\text{Context.prec} = \text{TargetPrecision} + \text{GuardDigits}$$
-     где $\text{GuardDigits} = 15$. При 1000 знаках точности расчет ведется с 1015 знаками.
-  3. *Точность отображения (Display Precision):* Финальный результат квантуется методом `quantize()` с правилом округления `ROUND_HALF_UP` строго до количества знаков, запрошенного пользователем.
-- **Поддерживаемые операции:**
-  - Базовые: Сложение (`+`), Вычитание (`-`), Умножение (`*`), Деление (`/`).
-  - Возведение в степень (`^`): целочисленные и дробные степени.
-  - Квадратный корень (`sqrt(x)`): для $x \ge 0$ через оптимизированный метод `Context.sqrt()`, реализующий алгоритм Ньютона-Рафсона произвольной точности.
-  - Унарный минус (`-x`).
+### 3.1. Поток вычисления аналитического выражения
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as Пользователь / Тест
+    participant GUI as UI View (CalculatorTab)
+    participant Engine as MathEngine
+    participant Lexer as Lexer
+    participant Parser as Parser
+    participant Math as Decimal & Complex Core
+    participant History as HistoryManager
 
-### 3.2. Лексер и синтаксический анализатор (`Lexer` & `Parser`)
-- **Безопасность (Security):** Категорический отказ от `eval()`, `exec()` или абстрактных интерпретаторов кода. Грамматика является строго детерминированной.
-- **Алгоритм Shunting-Yard (Сортировочная станция Дейкстры):**
-  - Преобразует инфиксную запись (например, `(15.5 + 2.75) * sqrt(144)`) в дерево или постфиксную запись.
-  - Учитывает приоритеты операторов: скобки, функции, степень (правоассоциативная), унарный минус, умножение/деление, сложение/вычитание.
-
-### 3.3. Менеджер постоянного хранения (`StorageManager`)
-- **Гарантия атомарности:**
-  Запись файлов `config.json` и `history.json` осуществляется по алгоритму:
-  1. Сериализация данных во временный файл в той же директории: `.filename.tmp.<uuid>`.
-  2. Сброс буферов на физический накопитель: `flush()` + `os.fsync()`.
-  3. Атомарная замена целевого файла: `os.replace(temp_path, target_path)`.
-- **Защита от повреждений (Corruption Tolerance):**
-  Если целевой JSON поврежден, `StorageManager` фиксирует ошибку, перемещает сбойный файл в `.corrupted.<timestamp>`, восстанавливает конфигурацию по умолчанию и уведомляет пользователя.
-
-### 3.4. Служба локализации (`LocalizationService`)
-- **Ресурсная модель:** Загрузка словарей перевода из `locales/{lang}.json`.
-- **Поддерживаемые языки:** Русский (`ru`), Английский (`en`), Испанский (`es`), Китайский (`zh`).
-- **Fallback-стратегия:** При отсутствии перевода возвращается значение из `en.json`, затем сам ключ. Запрещены условные конструкции `if lang == "ru"` в бизнес-логике.
-
-### 3.5. Служба диагностики и снижения стоимости поддержки (`DiagnosticsService`)
-- **Автоматическая самопроверка:** права на запись, целостность файлов, бенчмарк вычисления $\sqrt{2}$ на 1000 знаков.
-- **Экспорт диагностического пакета (Support Bundle):** создание ZIP-архива в один клик (система, логи, обезличенный конфиг).
-- **Встроенная база знаний (Troubleshooting FAQ):** интерактивный справочник ошибок с кнопкой "Сброс настроек к заводским".
-
-### 3.6. Служба обновлений (`UpdateService`)
-- **Модель версионирования:** SemVer 2.0.0 (`MAJOR.MINOR.PATCH`).
-- **Схема доставки:** Чтение удаленного манифеста `version.json`.
-- **Классификация релизов:** `critical` (критический хотфикс) и `feature` (функциональное обновление).
+    User->>GUI: Ввод выражения "sqrt(-100) + 5"
+    GUI->>Engine: evaluate("sqrt(-100) + 5", precision=50, allow_complex=True)
+    Engine->>Lexer: tokenize()
+    Lexer-->>Engine: Tokens [IDENT(sqrt), LPAREN, MINUS, NUM(100), RPAREN, PLUS, NUM(5)]
+    Engine->>Parser: parse(Tokens)
+    Parser-->>Engine: AST Tree (BinaryOp: +)
+    Engine->>Math: _eval_node(AST, Context)
+    Math-->>Engine: DecimalComplex(real=5, imag=10)
+    Engine->>Math: format(precision=50)
+    Math-->>Engine: "5.00 + 10.00i"
+    Engine->>History: add_record("sqrt(-100) + 5", "5.00 + 10.00i")
+    Engine-->>GUI: CalculationResult (is_complex=True, elapsed_ms=0.15)
+    GUI-->>User: Отображение результата и метрик
+```
 
 ---
 
-## 4. Форматы данных и JSON-схемы
+## 4. Архитектура долговременной поддержки на 10 лет (10-Year LTS Architecture)
 
-### 4.1. Конфигурация приложения (`config.json`)
-```json
-{
-  "version": "1.0.0",
-  "app_settings": {
-    "language": "ru",
-    "theme": "system",
-    "default_precision": 50,
-    "max_precision_limit": 1000,
-    "auto_check_updates": true,
-    "history_max_records": 500
-  }
-}
-```
+Для обеспечения непрерывного функционирования и сопровождения MVP в течение 10 лет (2026–2036) архитектура реализует следующие инженерные решения:
 
-### 4.2. История вычислений (`history.json`)
-```json
-{
-  "schema_version": "1.0.0",
-  "updated_at": "2026-09-22T15:30:00Z",
-  "records": [
-    {
-      "id": "c4b8e21a-7b3c-4e89-8d1b-123456789abc",
-      "timestamp": "2026-09-22T15:28:12Z",
-      "expression": "sqrt(2)",
-      "precision": 50,
-      "result": "1.41421356237309504880168872420969807856967187537695",
-      "execution_time_ms": 1.45,
-      "status": "success"
-    }
-  ]
-}
-```
+1. **Технологический фундамент с длительным EOL:**
+   - Базовый рантайм: Python 3.11 / 3.12 / 3.14 (стандартная библиотека без компилируемых бинарных сторонних математических пакетов вроде SciPy/NumPy).
+   - GUI: PySide6 (официальная поддержка Qt 6 LTS до 2030+ года с прозрачной миграцией).
+2. **Контейнеризация и воспроизводимость сборки:**
+   - GitHub Actions CI/CD матрица тестирования под Ubuntu LTS и Windows Server.
+   - Фиксация контрольных сумм и автономные сборщики дистрибутивов (WiX Toolset v3.11/v4 и кроссплатформенный `build_deb.py`).
+3. **Бесшовное обновление и вывод из эксплуатации (EOS Policy):**
+   - Встроенный Updater с криптографической проверкой SHA-256 исключает поставку несовместимых или поврежденных версий.
+   - Полное и чистое удаление (Section 10 ТЗ): пользовательский выбор очистки `%APPDATA%\SQRT_Gem` предотвращает накопление системного мусора на хост-машинах за 10 лет эксплуатации.
