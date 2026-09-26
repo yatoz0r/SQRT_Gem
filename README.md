@@ -130,3 +130,52 @@ chmod +x packaging/install.sh packaging/uninstall.sh
 # Удаление:
 ./packaging/uninstall.sh [--purge]
 ```
+
+---
+
+## 👥 Контрибьюторы и команда проекта
+
+Проект разработан и сопровождается инженерной командой из 5 специалистов:
+
+<table>
+  <tr>
+    <td align="center" width="20%">
+      <a href="https://github.com/yatoz0r">
+        <img src="https://github.com/yatoz0r.png" width="90px;" alt="yatoz0r"/><br />
+        <sub><b>yatoz0r</b></sub>
+      </a><br />
+      <sub>Руководитель проекта<br />(Project Manager)</sub>
+    </td>
+    <td align="center" width="20%">
+      <a href="https://github.com/KrasnoeBeloe">
+        <img src="https://github.com/KrasnoeBeloe.png" width="90px;" alt="KrasnoeBeloe"/><br />
+        <sub><b>KrasnoeBeloe</b></sub>
+      </a><br />
+      <sub>Ведущий инженер ядра<br />(Lead Core Math)</sub>
+    </td>
+    <td align="center" width="20%">
+      <a href="https://github.com/Greateapot">
+        <img src="https://github.com/Greateapot.png" width="90px;" alt="Greateapot"/><br />
+        <sub><b>Greateapot</b></sub>
+      </a><br />
+      <sub>Разработчик интерфейса<br />(Senior UI/Qt Engineer)</sub>
+    </td>
+    <td align="center" width="20%">
+      <a href="https://github.com/garbuzilia">
+        <img src="https://github.com/garbuzilia.png" width="90px;" alt="garbuzilia"/><br />
+        <sub><b>garbuzilia</b></sub>
+      </a><br />
+      <sub>Инженер по тестированию<br />(QA Automation Lead)</sub>
+    </td>
+    <td align="center" width="20%">
+      <a href="https://github.com/TrefCanopm">
+        <img src="https://github.com/TrefCanopm.png" width="90px;" alt="TrefCanopm"/><br />
+        <sub><b>TrefCanopm</b></sub>
+      </a><br />
+      <sub>Инженер релизов и SRE<br />(DevOps & SRE)</sub>
+    </td>
+  </tr>
+</table>
+
+Подробная матрица ответственности RACI и квалификационные требования описаны в документе [`docs/TEAM_ROLES.md`](docs/TEAM_ROLES.md).
+
